@@ -1,0 +1,324 @@
+{
+  "lights": {
+    "light": {
+      "id": "1",
+      "state_light": {
+        "on": false,
+        "bri": 77,
+        "hue": 8402,
+        "sat": 140,
+        "effect": "none",
+        "xy": [
+          0.4575,
+          0.4099
+        ],
+        "ct": 366,
+        "alert": "none",
+        "colormode": "xy",
+        "mode": "homeautomation",
+        "reachable": true
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-06-19T00:37:33"
+      },
+      "type": "Extended color light",
+      "name": "ET2 iQ 1",
+      "modelid": "E31252-BBK",
+      "manufacturername": "ET2 Contemporary Lighting",
+      "productname": "ET2 iQ",
+      "capabilities": {
+        "certified": true,
+        "control": {
+          "mindimlevel": 100,
+          "maxlumen": 2100,
+          "colorgamuttype": "C",
+          "colorgamut": [
+            [
+              0.6915,
+              0.3083
+            ],
+            [
+              0.1700,
+              0.7000
+            ],
+            [
+              0.1532,
+              0.0475
+            ]
+          ],
+          "ct": {
+            "min": 153,
+            "max": 500
+          }
+        },
+        "streaming": {
+          "renderer": true,
+          "proxy": true
+        }
+      },
+      "config": {
+        "archetype": "ceilinground",
+        "function": "mixed",
+        "direction": "downwards",
+        "startup": {
+          "mode": "custom",
+          "configured": true,
+          "customsettings": {
+            "bri": 99,
+            "xy": [
+              0.4575,
+              0.4099
+            ]
+          }
+        }
+      },
+      "uniqueid": "00:17:88:01:06:7c:5e:b3-0b",
+      "swversion": "1.65.9_hB3217DF",
+      "swconfigid": "EE994B2D",
+      "productid": "3241-3129-1221_HC02_PSU09"
+    }
+  },
+  "groups": {
+    "group": {
+      "id": "1",
+      "name": "Living Room",
+      "lights": [
+        "17",
+        "15",
+        "2"
+      ],
+      "sensors": [],
+      "type": "Room",
+      "state": {
+        "all_on": true,
+        "any_on": true
+      },
+      "recycle": false,
+      "class": "Living room",
+      "action": {
+        "on": true,
+        "bri": 151,
+        "hue": 8597,
+        "sat": 121,
+        "effect": "none",
+        "xy": [
+          0.4452,
+          0.4068
+        ],
+        "ct": 343,
+        "alert": "select",
+        "colormode": "xy"
+      }
+    }
+  },
+  "config": {
+    "name": "Philips hue",
+    "zigbeechannel": 11,
+    "bridgeid": "ECB5FAFFFE1097E1",
+    "mac": "ec:b5:fa:10:97:e1",
+    "dhcp": true,
+    "ipaddress": "192.168.1.77",
+    "netmask": "255.255.255.0",
+    "gateway": "192.168.1.254",
+    "proxyaddress": "none",
+    "proxyport": 0,
+    "UTC": "2020-12-31T09:29:12",
+    "localtime": "2020-12-31T01:29:12",
+    "timezone": "America/Los_Angeles",
+    "modelid": "BSB002",
+    "datastoreversion": "98",
+    "swversion": "1941132080",
+    "apiversion": "1.41.0",
+    "swupdate": {
+      "updatestate": 0,
+      "checkforupdate": false,
+      "devicetypes": {
+        "bridge": false,
+        "lights": [],
+        "sensors": []
+      },
+      "url": "",
+      "text": "",
+      "notify": true
+    },
+    "swupdate2": {
+      "checkforupdate": false,
+      "lastchange": "2020-12-27T09:13:46",
+      "bridge": {
+        "state": "noupdates",
+        "lastinstall": "2020-12-08T22:58:19"
+      },
+      "state": "noupdates",
+      "autoinstall": {
+        "updatetime": "T14:00:00",
+        "on": true
+      }
+    },
+    "linkbutton": false,
+    "portalservices": true,
+    "portalconnection": "connected",
+    "portalstate": {
+      "signedon": true,
+      "incoming": false,
+      "outgoing": true,
+      "communication": "disconnected"
+    },
+    "internetservices": {
+      "internet": "connected",
+      "remoteaccess": "connected",
+      "time": "connected",
+      "swupdate": "connected"
+    },
+    "factorynew": false,
+    "replacesbridgeid": null,
+    "backup": {
+      "status": "idle",
+      "errorcode": 0
+    },
+    "starterkitid": "",
+    "whitelist": {
+      "device" :
+      { "id": "ded9bec4-768f-4dad-bbb5-e20e1ccf3db8",
+        "last use date": "2020-06-19T00:34:55",
+        "create date": "2020-06-19T00:31:39",
+        "name": "Hue 3#Louis Roehrs iPhone"
+      }
+    }
+  },
+  "schedules": {
+    "schedule": {
+      "id": "1",
+      "name": "Go to sleep start",
+      "description": "Trigger go to sleep start",
+      "command": {
+        "address": "/api/MmtbtAq3cpnQA9UxsF9ZtL0oCLCkYm4U/sensors/6/state",
+        "body": {
+          "flag": true
+        },
+        "method": "PUT"
+      },
+      "localtime": "W127/T22:00:00",
+      "time": "W127/T06:00:00",
+      "created": "2020-06-19T01:02:48",
+      "status": "disabled",
+      "recycle": true
+    }
+  },
+  "scenes": {
+    "scene": {
+      "id": "pasfasfw23423",
+      "name": "Relax",
+      "type": "GroupScene",
+      "group": "2",
+      "lights": [
+        "3",
+        "4",
+        "5",
+        "7",
+        "9"
+      ],
+      "owner": "f5408004-f31c-4406-922a-9cce36ebfacd",
+      "recycle": false,
+      "locked": false,
+      "appdata": {
+        "version": 1,
+        "data": "gEm5z_r02_d01"
+      },
+      "picture": "",
+      "image": "a1f7da49-d181-4328-abea-68c9dc4b5416",
+      "lastupdated": "2020-12-27T07:28:54",
+      "version": 2
+    }
+  },
+  "rules": {
+    "rule": {
+      "id": "1",
+      "name": "9:",
+      "owner": "a800bbb4-ac5a-4805-b1f1-327960746e7d",
+      "created": "2020-06-19T00:51:34",
+      "lasttriggered": "2020-12-29T22:59:56",
+      "timestriggered": 10,
+      "status": "enabled",
+      "recycle": true,
+      "conditions": [
+        {
+          "address": "/sensors/3/state/buttonevent",
+          "operator": "eq",
+          "value": "1000"
+        },
+        {
+          "address": "/sensors/3/state/lastupdated",
+          "operator": "dx"
+        },
+        {
+          "address": "/groups/3/state/any_on",
+          "operator": "eq",
+          "value": "true"
+        }
+      ],
+      "actions": [
+        {
+          "address": "/groups/3/action",
+          "method": "PUT",
+          "body": {
+            "on": false
+          }
+        }
+      ]
+    }
+  },
+  "sensors": {
+    "sensor" : {
+      "id":  "1",
+      "state_sensor": {
+        "daylight": false,
+        "lastupdated": "2020-12-31T00:30:00"
+      },
+      "config": {
+        "on": true,
+        "configured": true,
+        "sunriseoffset": 30,
+        "sunsetoffset": -30
+      },
+      "name": "Daylight",
+      "type": "Daylight",
+      "modelid": "PHDL00",
+      "manufacturername": "Signify Netherlands B.V.",
+      "swversion": "1.0"
+    }
+  },
+  "resourcelinks": {
+    "resource" : {
+      "id": "34113",
+      "name": "Lutron Aurora 1",
+      "description": "Lutron Aurora 1 behavior",
+      "type": "Link",
+      "classid": 10070,
+      "owner": "a800bbb4-ac5a-4805-b1f1-327960746e7d",
+      "recycle": false,
+      "links": [
+        "/rules/16",
+        "/rules/15",
+        "/rules/14",
+        "/rules/13",
+        "/rules/12",
+        "/rules/11",
+        "/rules/10",
+        "/rules/9",
+        "/rules/8",
+        "/rules/7",
+        "/rules/6",
+        "/rules/5",
+        "/rules/4",
+        "/rules/3",
+        "/sensors/2",
+        "/rules/2",
+        "/scenes/h5PZU2iXxR7YYMJ",
+        "/rules/1",
+        "/sensors/3",
+        "/groups/3"
+      ]
+    }
+  }
+}

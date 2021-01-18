@@ -1,0 +1,74 @@
+type Query {
+    bookById(id: ID): Book
+    lights: [Light]
+}
+
+type Light {
+    id: ID
+    lightDetail: LightDetail
+}
+
+type LightDetail {
+    state: LightState
+    swupdate: SoftwareUpdate
+    type: String
+    name: String
+    modelid: String
+    manufacturername: String
+    productname: String
+    capabilities: LightCapabilities
+    config: LightConfig
+}
+
+type SoftwareUpdate {
+    state: String
+    lastinstall: String
+}
+
+type LightState {
+    poweron: Boolean
+    bri: Int
+    hue: Int
+    sat: Int
+    effect: String
+    xy: [Int]
+    ct: Int
+    alert: String
+    colormode: String
+    mode: String
+    reachable: Boolean
+}
+
+type LightCapabilities {
+    certified: Boolean
+}
+
+type LightConfig {
+    archetype:String
+    function: String
+    direction: String
+    startup : LightStartup
+}
+
+type LightStartup {
+    mode: String
+    configured: Boolean
+    customsettings: LightStartupSettings
+}
+
+type LightStartupSettings {
+    bri: Int
+    xy: [Int]
+}
+type Book {
+    id: ID
+    name: String
+    pageCount: Int
+    author: Author
+}
+
+type Author {
+    id: ID
+    firstName: String
+    lastName: String
+}
