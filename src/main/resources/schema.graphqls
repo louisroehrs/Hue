@@ -4,7 +4,6 @@ type Schema {
 }
 
 type Query {
-    bookById(id: ID): Book
     lightById(id:ID): LightDetail
     getAllLights: [LightDetail]
 
@@ -12,6 +11,7 @@ type Query {
 
 type Mutation {
     turnLightOn (id:ID, on:Boolean): [LightDetail]
+    setLightColor (id:ID, bri:Int, hue:Int, sat:Int): [LightDetail]
 }
 
 type Light {
@@ -71,16 +71,4 @@ type LightStartup {
 type LightStartupSettings {
     bri: Int
     xy: [Int]
-}
-type Book {
-    id: ID
-    name: String
-    pageCount: Int
-    author: Author
-}
-
-type Author {
-    id: ID
-    firstName: String
-    lastName: String
 }

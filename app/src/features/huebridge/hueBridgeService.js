@@ -1,6 +1,5 @@
 import { lightsFetched, lightsFetchedError, lightsLoading} from "./hueBridgeSlice";
 
-
 const baseUrl = ''; 
 
 const hueBridgeService = (dispatch)=> {
@@ -11,9 +10,9 @@ const hueBridgeService = (dispatch)=> {
     const fetchLights = () => {
         dispatch(lightsLoading());
         fetch(baseUrl + '/graphql?query=' + encodeURI('{query: getAllLights { id name state {on, hue, bri, sat}}}'),
-            {headers: headers}
+          {headers: headers}
         )
-            .then(res => res.json())
+          .then(res => res.json())
             .then(res => {
                 if (res.error) {
                     throw(res.error);
@@ -30,30 +29,57 @@ const hueBridgeService = (dispatch)=> {
     const turnLightOn = (id, on) => {
         debugger;
         fetch(baseUrl + '/graphql',
-            {
-                headers: headers,
-                body: `{"query":"mutation { turnLightOn (id:${id}, on: ` +
-                    (on?"true":"false") +
-                    ') {id name state {on bri hue sat}}}"}',
-                method: "POST"
-            })
-            .then (res => res.json())
-            .then (res => {
-                if (res.error) {
-                    throw (res.error);
-                }
-                res.data.query = res.data.turnLightOn;
-                dispatch(lightsFetched(res));
-                return res;
-            })
-            .catch (error => {
-                dispatch(lightsFetchedError(error));
-            })
+          {
+              headers: headers,
+              body: `{"query":"mutation { turnLightOn (id:${id}, on: ` +
+                (on?"true":"false") +
+                ') {id name state {on bri hue sat}}}"}',
+              method: "POST"
+          })
+          .then (res => res.json())
+          .then (res => {
+              if (res.error) {
+                  throw (res.error);
+              }
+              res.data.query = res.data.turnLightOn;
+              dispatch(lightsFetched(res));
+              return res;
+          })
+          .catch (error => {
+              dispatch(lightsFetchedError(error));
+          })
+    }
+
+    const setLightColor = (id, color) => {
+        debugger;
+        fetch(baseUrl + '/graphql',
+          {
+              headers: headers,
+              body: `{"query":"mutation { setLightColor (id:${id}`
+                + ', bri:' + color.bri
+                + ', hue:' + color.hue
+                + ', sat:' + color.sat
+                + ') {id name state {on bri hue sat}}}"}',
+              method: "POST"
+          })
+          .then (res => res.json())
+          .then (res => {
+              if (res.error) {
+                  throw (res.error);
+              }
+              res.data.query = res.data.setLightColor;
+              dispatch(lightsFetched(res));
+              return res;
+          })
+          .catch (error => {
+              dispatch(lightsFetchedError(error));
+          })
     }
 
     return {
-        fetchLights: fetchLights,
-        turnLightOn:turnLightOn
+      fetchLights: fetchLights,
+      turnLightOn:turnLightOn,
+      setLightColor: setLightColor
     }
 }
 

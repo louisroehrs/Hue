@@ -13,6 +13,7 @@ const hueBridgeSlice  = createSlice ({
             state.hueBridgeLoading = true;
         },
         lightsFetched: (state,action) => {
+            debugger;
             state.lights = action.payload.data.query.sort((a,b)=> (a.name> b.name));
             state.hueBridgeLoading = false;
         },

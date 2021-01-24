@@ -30,36 +30,6 @@ public class GraphQLDataFetchers {
     private static WebClient.RequestBodySpec getLightsUri =
             (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights");
 
-
-
-    private static List<Map<String, String>> books = Arrays.asList(
-            ImmutableMap.of("id", "book-1",
-                    "name", "Harry Potter and the Philosopher's Stone",
-                    "pageCount", "223",
-                    "authorId", "author-1"),
-            ImmutableMap.of("id", "book-2",
-                    "name", "Moby Dick",
-                    "pageCount", "635",
-                    "authorId", "author-2"),
-            ImmutableMap.of("id", "book-3",
-                    "name", "Interview with the vampire",
-                    "pageCount", "371",
-                    "authorId", "author-3")
-    );
-
-    private static List<Map<String, String>> authors = Arrays.asList(
-            ImmutableMap.of("id", "author-1",
-                    "firstName", "Joanne",
-                    "lastName", "Rowling"),
-            ImmutableMap.of("id", "author-2",
-                    "firstName", "Herman",
-                    "lastName", "Melville"),
-            ImmutableMap.of("id", "author-3",
-                    "firstName", "Anne",
-                    "lastName", "Rice")
-    );
-
-
     public DataFetcher getLightById() {
         return dataFetchingEnvironment -> {
             String lightId = dataFetchingEnvironment.getArgument("id");
@@ -102,6 +72,25 @@ public class GraphQLDataFetchers {
         };
     }
 
+    public DataFetcher setLightColor() {
+        return dataFetchingEnvironment -> {
+            String id = dataFetchingEnvironment.getArgument("id");
+            Integer bri = dataFetchingEnvironment.getArgument("bri");
+            Integer hue = dataFetchingEnvironment.getArgument("hue");
+            Integer sat = dataFetchingEnvironment.getArgument("sat");
+            Map<String, Object> body = new HashMap<>();
+            body.put("hue",hue);
+            body.put("bri",bri);
+            body.put("sat",sat);
+            String string = (String) setLightColorByIdUri(id)
+                    .bodyValue(body)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return getLights();
+        };
+    }
+
     private WebClient.RequestBodySpec getLightByIdUri(String id) {
         WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights/" + id.trim());
         return requestBodySpec;
@@ -116,6 +105,8 @@ public class GraphQLDataFetchers {
         WebClient.RequestBodySpec requestBodySpec = (WebClient.RequestBodySpec) hueHubClient.put().uri("/lights/"+id.trim()+"/state");
         return requestBodySpec;
     }
-
-
+    private WebClient.RequestBodySpec setLightColorByIdUri(String id) {
+        WebClient.RequestBodySpec requestBodySpec = (WebClient.RequestBodySpec) hueHubClient.put().uri("/lights/"+id.trim()+"/state");
+        return requestBodySpec;
+    }
 }

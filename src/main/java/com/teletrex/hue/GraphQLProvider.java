@@ -54,6 +54,7 @@ public class GraphQLProvider {
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("turnLightOn", graphQLDataFetchers.turnLightOn())
+                        .dataFetcher("setLightColor", graphQLDataFetchers.setLightColor())
                 )
                 .build();
     }

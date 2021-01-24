@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import useHueBridgeService from "./features/huebridge/hueBridgeService";
 import Light from "./components/Light";
+import {RGBtoHSV} from "./algos/hsvandrgb";
 
 function App() {
 
@@ -18,7 +19,17 @@ function App() {
   },[]);
 
   const lightClicked = (id,on) => {
-      hueBridgeService.turnLightOn(id,on);
+    hueBridgeService.turnLightOn(id,on);
+  }
+
+  const lightColorChange = (id, color) => {
+    const {h,s,v} = RGBtoHSV(color.r,color.g,color.b);
+
+    hueBridgeService.setLightColor(id, {
+      bri:Math.floor(v*254),
+      hue:Math.floor(h*65536),
+      sat:Math.floor(s*255)
+    });
   }
 
   return (
@@ -43,6 +54,7 @@ function App() {
                             hue={light.state.hue}
                             sat={light.state.sat}
                             onClick={ () => lightClicked(light.id, !light.state.on)}
+                            onColorChange={ (color) => lightColorChange(light.id, color)}
                         />
                     </>
                 ))

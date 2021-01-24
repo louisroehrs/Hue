@@ -16,3 +16,7 @@ https://developers.meethue.com
 https://github.com/graphql-java-kickstart/graphql-spring-boot/blob/master/README.md#supported-graphql-java-libraries
 
 https://github.com/graphql-java-kickstart/graphql-spring-boot#enable-graphql-servlet
+
+
+
+https://github.com/talor-hammond/react-colour-wheel
