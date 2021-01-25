@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import com.teletrex.hue.model.Light;
 import com.teletrex.hue.model.Lights;
+import com.teletrex.hue.model.Sensor;
 import graphql.schema.DataFetcher;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -91,6 +92,24 @@ public class GraphQLDataFetchers {
         };
     }
 
+    public DataFetcher getAllSensors() {
+        return dataFetchingEnvironment -> {
+            // Convert a Map returned from an API to a list of objects, and stuff the key id into each object.
+            return getSensors();
+        };
+    }
+
+    //  @org.jetbrains.annotations.NotNull
+    private Collection<Sensor> getSensors() {
+        ParameterizedTypeReference<Map<String, Sensor>> mySensors = new ParameterizedTypeReference<Map<String,Sensor>>() {};
+        Map<String, Sensor> sensors = (Map<String, Sensor>) getAllSensorsUri()
+                .retrieve()
+                .bodyToMono(mySensors)
+                .block();
+        sensors.forEach( (k,v) -> v.setId(k));
+        return sensors.values();
+    }
+
     private WebClient.RequestBodySpec getLightByIdUri(String id) {
         WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights/" + id.trim());
         return requestBodySpec;
@@ -109,4 +128,10 @@ public class GraphQLDataFetchers {
         WebClient.RequestBodySpec requestBodySpec = (WebClient.RequestBodySpec) hueHubClient.put().uri("/lights/"+id.trim()+"/state");
         return requestBodySpec;
     }
+
+    private WebClient.RequestBodySpec getAllSensorsUri() {
+        WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/sensors/");
+        return requestBodySpec;
+    }
+
 }

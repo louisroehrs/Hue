@@ -114,4 +114,7 @@ public class Config{
 
 	@JsonProperty("on")
 	private boolean on;
+
+	@JsonProperty("battery")
+	private Integer battery;
 }

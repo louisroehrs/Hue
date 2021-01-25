@@ -37,7 +37,6 @@ body {
   height:70px;
   padding:3px;
   padding-left:10px;
-  border-top-left-radius:20px;
 }
 
 .headerblack {
@@ -83,22 +82,25 @@ body {
   margin-right:4px;
   height:57px;
 }
-
+.griditemgap {
+  background-color: black;
+  width:5px;
+  height:40px;
+  margin:0px;
+  float:right;
+}
 .on, .off, .color {
   background-color: white;
-  width:30px;
-  height:30px;
+  width:40px;
+  height:40px;
   float:right;
-  margin:5px;
-  border-radius:4px;
+  margin:0px;
+  margin-right:0px;
+  border-radius:0px;
 }
 .off {
   background-color: black;
 }
-.color {
-  margin-right:3px;
-}
-
 
 .light {
   color:#000;
@@ -112,15 +114,15 @@ body {
   padding:1px;
   padding-left:10px;
   letter-spacing: 1px;
-  border-top-right-radius:10px;
-  border-bottom-right-radius:10px;
+  border-top-right-radius:20px;
+  border-bottom-right-radius:20px;
 }
 
 .drawer {
   background-color: black;
-  margin-top:45px;
+  margin-top:40px;
   margin-bottom:30px;
-  margin-right: 40px;
+  margin-right: -40px;
   margin-left:-10px;
   border-top-right-radius : 10px;
   border-bottom-right-radius : 10px;
@@ -137,6 +139,35 @@ body {
   background-color:orange;
 }
 
+.datafield--field {
+  position:relative;
+  width:auto;
+  padding-left:5px;
+  padding-right:5px;
+  margin-right:5px;
+  margin-bottom:5px;
+  text-align: right;
+  background-color:rgb(113,94,60);
+}
+
+.datafield--string {
+  position:relative;
+  z-index:20;
+}
+
+.datafield--label {
+  position: absolute;
+  bottom: 4px;
+  color: black;
+  font-size: 1rem;
+  text-transform: uppercase;
+
+}
+.datafield--graph-bar {
+  height:30px;
+  background-color:green;
+  margin-left: auto;
+}
 
 #nowplaying {
   position:fixed;
@@ -179,7 +210,7 @@ body {
 .grid {
   display:grid;
   grid-gap:4px;
-  grid-template-columns: 55px auto 50px 50px 50px 12px;
+  grid-template-columns: 15px 174px auto 90px 50px 12px;
   grid-auto-rows: minmax(20px, auto);
   margin-bottom:4px;
   margin-left:5px;
@@ -187,27 +218,33 @@ body {
 }
 
 .gridheader {
-  grid-column: 1/3;
+  grid-column: 1/7;
   padding-left:15px;
   color: #000;
   background-color: rgba(200,225,250,1);
   font-family: bold Okuda 25pt;
-  border-top-left-radius:20px;
+  border-top-left-radius:80px;
 }
 
-.gridheaderbutton,.gridheaderbutton2 {
-
+.gridheaderbutton,.gridheaderend {
+  float:right;
   color: #000;
+  width:40px;
+  height:50px;
   background-color: rgba(200,225,250,1);
   font-family: bold Okuda 25pt;
   border-radius:0px;
   text-align:center;
 }
-.gridheaderbutton2 {
 
-}
 .gridheaderend {
-  background-color: rgba(200,225,250,1);
+  width: 15px;
+}
+.gridheadergap {
+  float:right;
+  width:4px;
+  height:50px;
+  background-color: black;
 }
 
 .gridlefter {
@@ -216,8 +253,9 @@ body {
   border-radius:0px;
 }
 .gridtitle {
-  grid-column: span 2;
+  float:right;
   color: lemonchiffon;
+  background-color: black;
   letter-spacing: .5px;
   border-radius: 0px;
   text-align: center;
@@ -232,12 +270,13 @@ body {
   background-color: rgba(100,150,250,1);
   margin-left:10px;
   min-height:40px;
-  padding:3px;
+  padding:0px;
+  padding-right:60px;
   margin:3px;
   padding-left:10px;
   letter-spacing: 1px;
-  border-top-right-radius:10px;
-  border-bottom-right-radius:10px;
+  border-top-right-radius:20px;
+  border-bottom-right-radius:20px;
 }
 .name {
   font-size:18pt;
@@ -247,12 +286,27 @@ body {
   bottom:0px;
 }
 
-.gridfooter {
+.gridfooter, .gridfooterbutton {
   background-color: rgba(200,225,250,1);
   grid-column: 1 / end;
-  border-bottom-left-radius:20px;
   border-top-left-radius:0px;
   height:30px;
+}
+.gridfooter {
+  border-bottom-left-radius: 40px;
+  padding-right:40px;
+}
+.gridfooterbutton {
+  float:right;
+  padding-left:3px;
+  padding-right:3px;
+  color:lemonchiffon;
+  background-color: black;
+  margin-left:20px;
+  font-size: 41px;
+  letter-spacing: .5px;
+  line-height: .75;
+  padding-top:0px;
 }
 
 .scrollinglist {

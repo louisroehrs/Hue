@@ -6,7 +6,7 @@ type Schema {
 type Query {
     lightById(id:ID): LightDetail
     getAllLights: [LightDetail]
-
+    getAllSensors: [SensorDetail]
 }
 
 type Mutation {
@@ -30,6 +30,31 @@ type LightDetail {
     productname: String
     capabilities: LightCapabilities
     config: LightConfig
+}
+
+type SensorDetail {
+    id:Int
+    name: String
+    manufacturername:String
+    modelid: String
+    swversion:String
+    type:String
+    uniqueid:String
+    state: SensorState
+    config: SensorConfig
+    recycle: Boolean
+}
+
+type SensorConfig {
+    battery: Int
+    on: Boolean
+    reachable: Boolean
+}
+
+type SensorState {
+    presence:Boolean
+    buttonevent: Int
+    lastUpdated: String
 }
 
 type SoftwareUpdate {

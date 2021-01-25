@@ -2,7 +2,8 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
     hueBridgeLoading : false,
-    lights: []
+    lights: [],
+    sensors:[]
 };
 
 const hueBridgeSlice  = createSlice ({
@@ -20,11 +21,31 @@ const hueBridgeSlice  = createSlice ({
         lightsFetchedError: (state,action) => {
             state.hueBridgeLoading = false;
             state.error = action.payload;
+        },
+
+        sensorsLoading: (state,action) => {
+            state.hueBridgeLoading = true;
+        },
+        sensorsFetched: (state,action) => {
+            debugger;
+            state.sensors = action.payload.data.query.sort((a,b)=> (a.name> b.name));
+            state.hueBridgeLoading = false;
+        },
+        sensorsFetchedError: (state,action) => {
+            state.hueBridgeLoading = false;
+            state.error = action.payload;
         }
     }
 })
 
 
-export const { lightsLoading, lightsFetched, lightsFetchedError} = hueBridgeSlice.actions
+export const {
+    lightsLoading,
+    lightsFetched,
+    lightsFetchedError,
+    sensorsLoading,
+    sensorsFetched,
+    sensorsFetchedError
+} = hueBridgeSlice.actions
 
 export default hueBridgeSlice.reducer

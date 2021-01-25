@@ -1,8 +1,10 @@
 package com.teletrex.hue.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Setter;
 
-public class Sensor{
+@Setter
+public class Sensor {
 
 	@JsonProperty("state_sensor")
 	private StateSensor stateSensor;
@@ -27,4 +29,5 @@ public class Sensor{
 
 	@JsonProperty("config")
 	private Config config;
+
 }

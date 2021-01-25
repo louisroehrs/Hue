@@ -50,6 +50,7 @@ public class GraphQLProvider {
                 .type(newTypeWiring("Query")
                         .dataFetcher("lightById", graphQLDataFetchers.getLightById())
                         .dataFetcher("getAllLights", graphQLDataFetchers.getAllLights())
+                        .dataFetcher("getAllSensors", graphQLDataFetchers.getAllSensors())
 
                 )
                 .type(newTypeWiring("Mutation")
