@@ -1,0 +1,38 @@
+
+.outlet {
+    border-radius:5px;
+    padding:5px;
+    margin: 20px;
+    background-color:grey;
+}
+
+.outlet .label {
+    background-color:grey;
+    margin:10px;
+}
+
+.outlet .switchOn, .outlet .switchOff {
+    border-radius: 5px;
+    padding:5px;
+    margin: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height:100px;
+    width:100px;
+    background-color:darkgrey;
+}
+
+.outlet .switchOn {
+    background-color:green;
+}
+
+
+.button .poweredOn, .button .poweredOff  {
+    margin: 10px;
+    border-radius:5px;
+    padding:5px;
+}
+
+.button .poweredOn {
+    background-color:orange;
+}

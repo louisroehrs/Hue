@@ -15,28 +15,27 @@ const hueBridgeService = (dispatch)=> {
     headers.append('Content-Type','application/json');
 //    headers.append('Authorization', 'Basic ' + btoa("admin:1234"));
 
-  const fetchLights = () => {
+  const fetchLights = async () => {
     dispatch(lightsLoading());
-    fetch(baseUrl + '/graphql?query=' + encodeURI('{query: getAllLights { id name state {on, hue, bri, sat}}}'),
+    const response = await fetch(
+      baseUrl
+      + '/graphql?query='
+      + encodeURI('{query: getAllLights { id name state {on, hue, bri, sat}}}'),
       {headers: headers}
-    )
-      .then(res => res.json())
-      .then(res => {
-        if (res.error) {
-          throw(res.error);
-        }
-        dispatch(lightsFetched(res));
+    );
 
-        return res;
-      })
-      .catch(error => {
-        dispatch(lightsFetchedError("error"));
-      })
+    if (response.ok) {
+      const json = await response.json();
+      dispatch(lightsFetched(json));
+    } else {
+      dispatch(lightsFetchedError("error"));
+    }
   }
 
-  const turnLightOn = (id, on) => {
-    debugger;
-    fetch(baseUrl + '/graphql',
+  const turnLightOn = async (id, on) => {
+    const response = await fetch(
+      baseUrl
+      + '/graphql',
       {
         headers: headers,
         body: `{"query":"mutation { turnLightOn (id:${id}, on: ` +
@@ -44,23 +43,19 @@ const hueBridgeService = (dispatch)=> {
           ') {id name state {on bri hue sat}}}"}',
         method: "POST"
       })
-      .then (res => res.json())
-      .then (res => {
-        if (res.error) {
-          throw (res.error);
-        }
-        res.data.query = res.data.turnLightOn;
-        dispatch(lightsFetched(res));
-        return res;
-      })
-      .catch (error => {
-        dispatch(lightsFetchedError(error));
-      })
+      if (response.ok) {
+        const json = await response.json();
+        json.data.query = json.data.turnLightOn;
+        dispatch(lightsFetched(json));
+      } else {
+        dispatch(lightsFetchedError({error:"error"}));
+      }
   }
 
-  const setLightColor = (id, color) => {
-    debugger;
-    fetch(baseUrl + '/graphql',
+  const setLightColor = async (id, color) => {
+    const response = await fetch(
+      baseUrl
+      + '/graphql',
       {
         headers: headers,
         body: `{"query":"mutation { setLightColor (id:${id}`
@@ -69,39 +64,32 @@ const hueBridgeService = (dispatch)=> {
           + ', sat:' + color.sat
           + ') {id name state {on bri hue sat}}}"}',
         method: "POST"
-      })
-      .then(res => res.json())
-      .then(res => {
-        if (res.error) {
-          throw (res.error);
-        }
-        res.data.query = res.data.setLightColor;
-        dispatch(lightsFetched(res));
-        return res;
-      })
-      .catch(error => {
-        dispatch(lightsFetchedError(error));
-      })
+      });
+
+    if ( response.ok) {
+      const json = await response.json();
+      json.data.query = json.data.setLightColor;
+      dispatch(lightsFetched(json));
+    } else {
+      dispatch(lightsFetchedError({error:"error"}));
+    }
   }
-  const fetchSensors = () => {
+
+  const fetchSensors =  async () => {
     dispatch(sensorsLoading());
-    fetch(baseUrl + '/graphql?query=' + encodeURI('{query: getAllSensors { id name modelid type manufacturername config {battery}}}'),
+    const response = await fetch(
+      baseUrl
+      + '/graphql?query='
+      + encodeURI('{query: getAllSensors { id name modelid type manufacturername config {battery}}}'),
       {headers: headers}
-    )
-      .then(res => res.json())
-      .then(res => {
-        if (res.error) {
-          throw(res.error);
-        }
-        dispatch(sensorsFetched(res));
-
-        return res;
-      })
-      .catch(error => {
-        dispatch(sensorsFetchedError("error"));
-      })
+    );
+    if (response.ok) {
+      const json = await response.json();
+      dispatch(sensorsFetched(json));
+    } else {
+      dispatch(sensorsFetchedError({error:"error"}));
+    }
   }
-
 
   return {
     fetchLights: fetchLights,

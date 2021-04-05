@@ -1,7 +1,8 @@
-package com.teletrex.hue;
+package com.teletrex;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
+import com.teletrex.hue.GraphQLHueDataFetchers;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
@@ -23,7 +24,7 @@ public class GraphQLProvider {
 
     private GraphQL graphQL;
     @Autowired
-    GraphQLDataFetchers graphQLDataFetchers;
+    GraphQLHueDataFetchers graphQLHueDataFetchers;
 
     @Bean
     public GraphQL graphQL() {
@@ -48,14 +49,14 @@ public class GraphQLProvider {
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("lightById", graphQLDataFetchers.getLightById())
-                        .dataFetcher("getAllLights", graphQLDataFetchers.getAllLights())
-                        .dataFetcher("getAllSensors", graphQLDataFetchers.getAllSensors())
+                        .dataFetcher("lightById", graphQLHueDataFetchers.getLightById())
+                        .dataFetcher("getAllLights", graphQLHueDataFetchers.getAllLights())
+                        .dataFetcher("getAllSensors", graphQLHueDataFetchers.getAllSensors())
 
                 )
                 .type(newTypeWiring("Mutation")
-                        .dataFetcher("turnLightOn", graphQLDataFetchers.turnLightOn())
-                        .dataFetcher("setLightColor", graphQLDataFetchers.setLightColor())
+                        .dataFetcher("turnLightOn", graphQLHueDataFetchers.turnLightOn())
+                        .dataFetcher("setLightColor", graphQLHueDataFetchers.setLightColor())
                 )
                 .build();
     }

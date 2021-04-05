@@ -3,22 +3,28 @@ import {useSelector, useDispatch} from 'react-redux'
 import logo from './logo.svg';
 import './App.css';
 import useHueBridgeService from "./features/huebridge/hueBridgeService";
+import useOutletService  from './features/outlets/outletService.js';
+
 import Light from "./components/Light";
 import Sensor from "./components/Sensor";
 import {RGBtoHSV} from "./algos/hsvandrgb";
+import Outlet from "./components/Outlet";
 import {current} from "@reduxjs/toolkit";
 
 function App() {
 
-  const [currentMode,setcurrentMode] = useState("LIGHTS");
+  const [currentMode,setCurrentMode] = useState("LIGHTS");
 
   const lights = useSelector( (state) => state.hueBridge.lights);
   const sensors = useSelector( (state) => state.hueBridge.sensors);
+
+  const outlets = useSelector((state) => state.outlets.outlets);
 
   const hueBridgeLoading = useSelector ((state) => state.hueBridgeLoading);
 
   const dispatch = useDispatch();
   const hueBridgeService = useHueBridgeService(dispatch);
+  const outletService = useOutletService(dispatch);
 
   useEffect( () => {
       hueBridgeService.fetchLights();
@@ -39,15 +45,24 @@ function App() {
     });
   }
 
+  const handleOnOutletClick = (outlet) => {
+    if (outlet.exclusive) {
+      outletService.toggleCallForOn(outlet);
+    } else {
+      outletService.setOutlet(outlet.id,!outlet.outletOn);
+    }
+    outletService.fetchOutlets();
+  }
+
   return (
     <div className="App">
       <div className={"grid"}>
         <div className={"gridheader"}>
-          <div className={"gridheaderend"}></div>
-          <div className={"gridheadergap"}></div>
-          <div className={"gridheaderbutton"}></div>
+          <div className={"gridheaderend"}/>
+          <div className={"gridheadergap"}/>
+          <div className={"gridheaderbutton"}/>
           <div className={"gridtitle"}>{currentMode}</div>
-          <div className={"gridheadergap"}></div>
+          <div className={"gridheadergap"}/>
         </div>
       </div>
       <div className={"scrollinglist"}
@@ -91,14 +106,30 @@ function App() {
                 </>
               ))
             )
+            || (
+              currentMode === "CHAIRS" &&
+              outlets.map(outlet => (
+                <>
+                  <div className={"gridlefter"}/>
+                  <Outlet
+                    key = {outlet.id}
+                    id={outlet.id}
+                    label={outlet.name}
+                    callForOn = {outlet.callForOn}
+                    outletOn = {outlet.outletOn}
+                    onClick = {() => handleOnOutletClick(outlet)}
+                  />
+                </>
+              ))
+            )
           }
         </div>
       </div>
       <div className={"grid"}>
         <div className={"gridfooter"}>
-          <div onClick={() => setcurrentMode("SENSORS")} className={"gridfooterbutton"}>SENSORS</div>
-          <div onClick={() => setcurrentMode("LIGHTS")} className={"gridfooterbutton"}>LIGHTS</div>
-          <div className={"gridfooterbutton"}>CHAIRS</div>
+          <div onClick={() => setCurrentMode("SENSORS")} className={"gridfooterbutton"}>SENSORS</div>
+          <div onClick={() => setCurrentMode("LIGHTS")} className={"gridfooterbutton"}>LIGHTS</div>
+          <div onClick={() => setCurrentMode("CHAIRS")} className={"gridfooterbutton"}>CHAIRS</div>
         </div>
       </div>
     </div>

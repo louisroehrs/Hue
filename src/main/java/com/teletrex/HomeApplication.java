@@ -1,8 +1,5 @@
-package com.teletrex.hue;
+package com.teletrex;
 
-import graphql.Scalars;
-import graphql.schema.*;
-import graphql.schema.idl.SchemaParser;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,11 +8,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-public class HueApplication {
+public class HomeApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(HueApplication.class, args);
+		SpringApplication.run(HomeApplication.class, args);
 	}
 
 	@Bean

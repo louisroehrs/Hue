@@ -27,7 +27,6 @@ const hueBridgeSlice  = createSlice ({
             state.hueBridgeLoading = true;
         },
         sensorsFetched: (state,action) => {
-            debugger;
             state.sensors = action.payload.data.query.sort((a,b)=> (a.name> b.name));
             state.hueBridgeLoading = false;
         },
