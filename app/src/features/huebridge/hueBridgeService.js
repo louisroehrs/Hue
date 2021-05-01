@@ -13,7 +13,6 @@ const hueBridgeService = (dispatch)=> {
     let headers = new Headers();
     headers.append('accept', 'application/json')
     headers.append('Content-Type','application/json');
-//    headers.append('Authorization', 'Basic ' + btoa("admin:1234"));
 
   const fetchLights = async () => {
     dispatch(lightsLoading());

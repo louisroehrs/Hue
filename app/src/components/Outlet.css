@@ -4,6 +4,7 @@
     padding:5px;
     margin: 20px;
     background-color:grey;
+    float:left;
 }
 
 .outlet .label {
@@ -24,15 +25,17 @@
 
 .outlet .switchOn {
     background-color:green;
+    color:lightgreen;
 }
 
 
-.button .poweredOn, .button .poweredOff  {
+.poweredOn, .poweredOff  {
     margin: 10px;
     border-radius:5px;
     padding:5px;
+    text-align:center;
 }
 
-.button .poweredOn {
+.poweredOn {
     background-color:orange;
 }

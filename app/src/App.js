@@ -1,35 +1,49 @@
-import { BrowserRouter, useState, useEffect} from 'react'
+import {React, BrowserRouter, useState, useEffect, useCallback} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import logo from './logo.svg';
 import './App.css';
 import useHueBridgeService from "./features/huebridge/hueBridgeService";
 import useOutletService  from './features/outlets/outletService.js';
+import useChairService from './features/chairs/chairService';
 
 import Light from "./components/Light";
 import Sensor from "./components/Sensor";
+import Chair from "./components/Chair";
 import {RGBtoHSV} from "./algos/hsvandrgb";
 import Outlet from "./components/Outlet";
 import {current} from "@reduxjs/toolkit";
 
-function App() {
+const App = ({}) =>  {
 
-  const [currentMode,setCurrentMode] = useState("LIGHTS");
+  const [currentMode,setCurrentMode] = useState("CHAIRS");
 
   const lights = useSelector( (state) => state.hueBridge.lights);
   const sensors = useSelector( (state) => state.hueBridge.sensors);
-
+  const chairs = useSelector( (state) => state.chairs.chairs)
   const outlets = useSelector((state) => state.outlets.outlets);
+
+  const modes = ["CHAIRS","LIGHTS","SENSORS","OUTLETS"];
 
   const hueBridgeLoading = useSelector ((state) => state.hueBridgeLoading);
 
   const dispatch = useDispatch();
   const hueBridgeService = useHueBridgeService(dispatch);
   const outletService = useOutletService(dispatch);
+  const chairService = useChairService(dispatch);
+
+  const [increment,setIncrement] = useState(0);
 
   useEffect( () => {
+    hueBridgeService.fetchLights();
+    hueBridgeService.fetchSensors();
+    chairService.fetchChairs();
+    const interval=setInterval(()=>{
       hueBridgeService.fetchLights();
-      hueBridgeService.fetchSensors();
-  },[]);
+      chairService.fetchChairs();
+    },10000)
+    return()=>clearInterval(interval)
+  },[increment]);
+
 
   const lightClicked = (id,on) => {
     hueBridgeService.turnLightOn(id,on);
@@ -52,6 +66,10 @@ function App() {
       outletService.setOutlet(outlet.id,!outlet.outletOn);
     }
     outletService.fetchOutlets();
+  }
+
+  const handleOnChairClick = (chair) => {
+    chairService.requestChair(chair.id, !chair.requested);
   }
 
   return (
@@ -108,6 +126,21 @@ function App() {
             )
             || (
               currentMode === "CHAIRS" &&
+                chairs.map(chair => (
+                  <>
+                  <div className={"gridlefter"}/>
+                  <Chair
+                    key ={chair.name}
+                    name ={ chair.name}
+                    id= {chair.name}
+                    requested = {chair.requested}
+                    poweredOn = {chair.poweredOn}
+                    onClick = {() => handleOnChairClick(chair)}
+                    />
+                  </>
+                )
+            )
+            ) || ( currentMode === "OUTLETS" &&
               outlets.map(outlet => (
                 <>
                   <div className={"gridlefter"}/>
@@ -127,9 +160,11 @@ function App() {
       </div>
       <div className={"grid"}>
         <div className={"gridfooter"}>
-          <div onClick={() => setCurrentMode("SENSORS")} className={"gridfooterbutton"}>SENSORS</div>
-          <div onClick={() => setCurrentMode("LIGHTS")} className={"gridfooterbutton"}>LIGHTS</div>
-          <div onClick={() => setCurrentMode("CHAIRS")} className={"gridfooterbutton"}>CHAIRS</div>
+          { modes.reverse().map(mode => (
+            <div onClick={() => setCurrentMode(mode)} className={"gridfooterbutton"}>{mode}</div>
+          )
+          )}
+
         </div>
       </div>
     </div>

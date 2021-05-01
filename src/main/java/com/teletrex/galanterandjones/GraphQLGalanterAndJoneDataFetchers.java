@@ -1,16 +1,25 @@
 package com.teletrex.galanterandjones;
 
 import com.teletrex.galanterandjones.model.Chair;
+import com.teletrex.galanterandjones.model.Outlet;
 import com.teletrex.hue.model.Light;
 import com.teletrex.hue.model.Sensor;
 import graphql.schema.DataFetcher;
+import io.netty.handler.logging.LogLevel;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.http.client.HttpClient;
+import reactor.netty.transport.logging.AdvancedByteBufFormat;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -23,155 +32,128 @@ public class GraphQLGalanterAndJoneDataFetchers {
     private static String chairIP = "192.168.1.200";
     private static String username = "admin";
     private static String password = "1234";
-    private static String baseUrl = "http://" + chairIP + "/script.cgi";
-    private static WebClient hueHubClient;
+    private static String protocolIp = "http://" + chairIP;
+    private static String scriptBaseUrl =  protocolIp + "/script.cgi";
+    private static String restApiBaseUrl = protocolIp + "/restapi/";
+
+    private static WebClient powerSocketClient;
 
     private static final HashMap<String,String> scriptName = new HashMap<>();
     static {
         scriptName.put("on1", "requestChairOne");
         scriptName.put("on2", "requestChairTwo");
         scriptName.put("on3", "requestChairThree");
-        scriptName.put("off1","chairOffOne");
-        scriptName.put("off2","chairOffTwo");
-        scriptName.put("off3","chairOffThree");
+        scriptName.put("off1", "chairOffOne");
+        scriptName.put("off2", "chairOffTwo");
+        scriptName.put("off3", "chairOffThree");
         scriptName.put("alloff", "allChairsOff");
-        scriptName.put("chairsOn","start_scripts");
+        scriptName.put("chairsOn", "start_scripts");
     }
 
     static {
         try {
-            hueHubClient = WebClient
+            HttpClient httpClient = HttpClient
+                    .create()
+                    .wiretap("reactor.netty.http.client.HttpClient",
+                            LogLevel.INFO, AdvancedByteBufFormat.TEXTUAL);
+            powerSocketClient = WebClient
                     .builder()
-                    .baseUrl(baseUrl)
+                    .clientConnector(new ReactorClientHttpConnector(httpClient))
+                    .baseUrl(protocolIp)
                     .defaultCookie("cookieKey", "cookieValue")
-                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                    .defaultHeader("X-CSRF", "true")
                     .defaultHeader(HttpHeaders.AUTHORIZATION, "Basic "+ Base64.getEncoder().encodeToString((username +":" + password).getBytes("UTF-8")))
-                    .defaultUriVariables(Collections.singletonMap("url", baseUrl))
+                    .defaultUriVariables(Collections.singletonMap("url", protocolIp))
                     .build();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
 
-    private static WebClient.RequestBodySpec getLightsUri =
-            (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights");
+    public DataFetcher getChairs() {
+        return dataFetchingEnvironment -> {
+            return getChairsFromWebSocket();
+        };
+    }
 
-    private Boolean[] chairRequests = new Boolean[] { false, false, false};
-
-    public List<Chair> getChairs() {
+    private List<Chair> getChairsFromWebSocket () {
         AtomicInteger index = new AtomicInteger(0);
-        List<Chair> chairs = Arrays.stream(chairRequests).map(chairRequest ->
+        /* get requested chairs and socket status for chairs */
+        ParameterizedTypeReference<Map<String, Boolean>> variables = new ParameterizedTypeReference<Map<String,Boolean>>() {};
+        Map<String, Boolean> requestedChairs = (Map<String, Boolean>) getRequestedChairsUrl()
+                .retrieve()
+                .bodyToMono(variables)
+                .block();
+
+        List<Outlet> myOutlets = new ArrayList<Outlet>() {};
+
+        List<Outlet> outlets = (List<Outlet>) getOutletsUrl()
+                .retrieve()
+                .bodyToFlux(Outlet.class)
+                .collectList()
+                .block();
+
+        List<Chair> chairs = Arrays.stream(new int[]{1, 2, 3}).mapToObj(chairId ->
         {
+            Outlet outletForChair = outlets.get(chairId-1);
             Chair chair = new Chair();
-            chair.setId(index.intValue()+1);
-            chair.setPoweredOn(true);  // get actual value via api.  rewrite to get from api and then map.
-            chair.setRequested(chairRequests[index.getAndIncrement()]);
+            chair.setId(chairId);
+            chair.setName(outletForChair.getName());
+            chair.setPoweredOn(outletForChair.getPhysical_state());
+            chair.setRequested(requestedChairs.get("chairRequest" + chairId));
             return chair;
         }).collect(toList());
         return chairs;
     }
 
-    public DataFetcher getLightById() {
-        return dataFetchingEnvironment -> {
-            String lightId = dataFetchingEnvironment.getArgument("id");
-            Light result = getLightByIdUri(lightId).retrieve().bodyToMono(Light.class).block();
-            result.setId(lightId);
-            return result;
-        };
-    }
-
-    public DataFetcher getAllLights() {
-        return dataFetchingEnvironment -> {
-            // Convert a Map returned from an API to a list of objects, and stuff the key id into each object.
-            return getLights();
-        };
-    }
-
-  //  @org.jetbrains.annotations.NotNull
-    private Collection<Light> getLights() {
-        ParameterizedTypeReference<Map<String, Light>> myLights = new ParameterizedTypeReference<Map<String,Light>>() {};
-        Map<String, Light> lights = (Map<String, Light>) getAllLightsUri()
-                .retrieve()
-                .bodyToMono(myLights)
-                .block();
-        lights.forEach( (k,v) -> v.setId(k) );
-        return lights.values();
-    }
-
-    public DataFetcher requestChair() {
-        return dataFetchingEnvironment -> {
-            String id = dataFetchingEnvironment.getArgument("chair");
-            Boolean on = dataFetchingEnvironment.getArgument("on");
-            Map<String, Object> body = new HashMap<>();
-            body.put("user_function",on);
-            String string = (String) turnLightOnByIdUri(id)
-                    .bodyValue(body)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-            return getLights();
-        };
-    }
-
-    public DataFetcher setLightColor() {
+    public DataFetcher requestChairOn() {
         return dataFetchingEnvironment -> {
             String id = dataFetchingEnvironment.getArgument("id");
-            Integer bri = dataFetchingEnvironment.getArgument("bri");
-            Integer hue = dataFetchingEnvironment.getArgument("hue");
-            Integer sat = dataFetchingEnvironment.getArgument("sat");
-            Map<String, Object> body = new HashMap<>();
-            body.put("hue",hue);
-            body.put("bri",bri);
-            body.put("sat",sat);
-            String string = (String) setLightColorByIdUri(id)
-                    .bodyValue(body)
+            Boolean on = dataFetchingEnvironment.getArgument("on");
+
+            MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
+            formData.add("value#", on?"true":"false");
+
+            String string = (String) requestChairByIdUri(id)
+                    .bodyValue(formData)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
-            return getLights();
+
+            return getChairsFromWebSocket();
         };
     }
 
-    public DataFetcher getAllSensors() {
-        return dataFetchingEnvironment -> {
-            // Convert a Map returned from an API to a list of objects, and stuff the key id into each object.
-            return getSensors();
-        };
-    }
 
-    //  @org.jetbrains.annotations.NotNull
-    private Collection<Sensor> getSensors() {
-        ParameterizedTypeReference<Map<String, Sensor>> mySensors = new ParameterizedTypeReference<Map<String,Sensor>>() {};
-        Map<String, Sensor> sensors = (Map<String, Sensor>) getAllSensorsUri()
-                .retrieve()
-                .bodyToMono(mySensors)
-                .block();
-        sensors.forEach( (k,v) -> v.setId(k));
-        return sensors.values();
-    }
-
-    private WebClient.RequestBodySpec getLightByIdUri(String id) {
-        WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights/" + id.trim());
+    private static WebClient.RequestBodySpec getOutletsUrl () {
+        WebClient.RequestBodySpec requestBodySpec =
+                (WebClient.RequestBodySpec) powerSocketClient
+                .get()
+                .uri("/restapi/relay/outlets/");
         return requestBodySpec;
     }
 
-    private WebClient.RequestBodySpec getAllLightsUri() {
-        WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights/");
+    private WebClient.RequestBodySpec getRequestedChairsUrl() {
+        WebClient.RequestBodySpec requestBodySpec =
+                (WebClient.RequestBodySpec) powerSocketClient
+                .get().uri("/restapi/script/variables/");
         return requestBodySpec;
     }
 
-    private WebClient.RequestBodySpec turnLightOnByIdUri(String id) {
-        WebClient.RequestBodySpec requestBodySpec = (WebClient.RequestBodySpec) hueHubClient.put().uri("/lights/"+id.trim()+"/state");
-        return requestBodySpec;
-    }
-    private WebClient.RequestBodySpec setLightColorByIdUri(String id) {
-        WebClient.RequestBodySpec requestBodySpec = (WebClient.RequestBodySpec) hueHubClient.put().uri("/lights/"+id.trim()+"/state");
-        return requestBodySpec;
-    }
-
-    private WebClient.RequestBodySpec getAllSensorsUri() {
-        WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/sensors/");
+    private WebClient.RequestBodySpec turnSocketOnByIdUri(String id) {
+        WebClient.RequestBodySpec requestBodySpec =
+                (WebClient.RequestBodySpec) powerSocketClient
+                        .put()
+                        .uri("/restapi/relay/outlets/"+id.trim()+"/state/");
         return requestBodySpec;
     }
 
+    private WebClient.RequestBodySpec requestChairByIdUri(String id) {
+        WebClient.RequestBodySpec requestBodySpec =
+                (WebClient.RequestBodySpec) powerSocketClient
+                        .put()
+                        .uri("/restapi/script/variables/chairRequest" + id.trim() + "/");
+        return requestBodySpec;
+    }
 }

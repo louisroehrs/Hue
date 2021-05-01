@@ -7,11 +7,68 @@ type Query {
     lightById(id:ID): LightDetail
     getAllLights: [LightDetail]
     getAllSensors: [SensorDetail]
+    getAllOutlets: [Outlet]
+    getVariables: [Variable]
+    getChairs: [Chair]
 }
 
 type Mutation {
     turnLightOn (id:ID, on:Boolean): [LightDetail]
     setLightColor (id:ID, bri:Int, hue:Int, sat:Int): [LightDetail]
+    turnOutletOn (id:ID, on:Boolean): [Outlet]
+    requestChairOn (id:ID, on:Boolean): [Chair]
+
+}
+
+type Relay {
+    name: String
+    online: String
+    model: String
+    version: String
+    outlets: [Outlet]
+    sequence_delay: Int
+    min_sequence_delay: Int
+    cycle_delay: Int
+    relatch: Int
+    recovery_mode: String
+    keypad_enabled: Boolean
+    beep_sequence: String
+    backlight_sequence: String
+    lcd_columns: Int
+    lcd_rows: Int
+    user_lines: [String]
+}
+
+type Outlet {
+    id: Int
+    key: Int
+    name: String
+    critical : Boolean
+    physical_state: Boolean
+    cycle_delay: Int
+    state: Boolean
+    locked: Boolean
+    transient_state: Boolean
+}
+
+type Chair {
+    id: Int
+    name: String
+    requested: Boolean
+    poweredOn: Boolean
+}
+
+type Variable {
+    name: String
+    value: Boolean
+}
+
+type Variables {
+    variables: [Variable]
+}
+
+type Script {
+
 }
 
 type Light {

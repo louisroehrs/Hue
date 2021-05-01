@@ -11,6 +11,7 @@ target
 
 # dev tools
 app/node
+node_modules
 
 # emacs
 *.*~
