@@ -1,9 +1,6 @@
-package com.teletrex.galanterandjones;
+package com.teletrex.webpowersocket;
 
-import com.teletrex.galanterandjones.model.Chair;
-import com.teletrex.galanterandjones.model.Outlet;
-import com.teletrex.hue.model.Light;
-import com.teletrex.hue.model.Sensor;
+import com.teletrex.webpowersocket.model.Outlet;
 import graphql.schema.DataFetcher;
 import io.netty.handler.logging.LogLevel;
 import org.springframework.core.ParameterizedTypeReference;

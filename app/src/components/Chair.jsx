@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react';
-import './Outlet.css';
+import './Chair.css';
 
 const Chair = ({
 
@@ -26,7 +26,7 @@ const Chair = ({
 
   return (
     <div key={id}
-         class="outlet" onClick={handleOnClick}>
+         class="chair" onClick={handleOnClick}>
       <div class="label">{name}
       </div>
       <img width={"100%"} src={name.toLowerCase().includes("couch")?"/apollocouch.png":"/apollochair.png"} />

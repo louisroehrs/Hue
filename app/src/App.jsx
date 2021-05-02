@@ -149,7 +149,7 @@ const App = ({}) =>  {
                     key = {outlet.id}
                     id={outlet.id}
                     label={outlet.name}
-                    callForOn = {outlet.callForOn}
+                    exclusive = {outlet.exclusive}
                     outletOn = {outlet.outletOn}
                     onClick = {() => handleOnOutletClick(outlet)}
                   />

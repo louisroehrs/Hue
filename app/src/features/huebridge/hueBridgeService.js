@@ -19,7 +19,7 @@ const hueBridgeService = (dispatch)=> {
     const response = await fetch(
       baseUrl
       + '/graphql?query='
-      + encodeURI('{query: getAllLights { id name state {on, hue, bri, sat}}}'),
+      + encodeURI('{query: getLights { id name state {on, hue, bri, sat}}}'),
       {headers: headers}
     );
 
@@ -79,7 +79,7 @@ const hueBridgeService = (dispatch)=> {
     const response = await fetch(
       baseUrl
       + '/graphql?query='
-      + encodeURI('{query: getAllSensors { id name modelid type manufacturername config {battery}}}'),
+      + encodeURI('{query: getSensors { id name modelid type manufacturername config {battery}}}'),
       {headers: headers}
     );
     if (response.ok) {

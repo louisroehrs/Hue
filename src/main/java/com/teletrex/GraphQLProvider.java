@@ -3,9 +3,8 @@ package com.teletrex;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.teletrex.hue.GraphQLHueDataFetchers;
-import com.teletrex.galanterandjones.GraphQLGalanterAndJoneDataFetchers;
-import com.teletrex.hue.GraphQLHueDataFetchers;
-import com.teletrex.galanterandjones.GraphQLWebPowerSocketDataFetchers;
+import com.teletrex.galanterandjones.GraphQLGalanterAndJonesDataFetchers;
+import com.teletrex.webpowersocket.GraphQLWebPowerSocketDataFetchers;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
@@ -29,7 +28,7 @@ public class GraphQLProvider {
     @Autowired
     GraphQLHueDataFetchers graphQLHueDataFetchers;
     @Autowired
-    GraphQLGalanterAndJoneDataFetchers graphQLGalanterAndJoneDataFetchers;
+    GraphQLGalanterAndJonesDataFetchers graphQLGalanterAndJonesDataFetchers;
 
     @Autowired
     GraphQLWebPowerSocketDataFetchers graphQLWebPowerSocketDataFetchers;
@@ -58,15 +57,15 @@ public class GraphQLProvider {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
                         .dataFetcher("lightById", graphQLHueDataFetchers.getLightById())
-                        .dataFetcher("getAllLights", graphQLHueDataFetchers.getAllLights())
-                        .dataFetcher("getAllSensors", graphQLHueDataFetchers.getAllSensors())
-                        .dataFetcher("getAllOutlets", graphQLWebPowerSocketDataFetchers.getAllOutlets())
-                        .dataFetcher("getChairs", graphQLGalanterAndJoneDataFetchers.getChairs())
+                        .dataFetcher("getLights", graphQLHueDataFetchers.getAllLights())
+                        .dataFetcher("getSensors", graphQLHueDataFetchers.getAllSensors())
+                        .dataFetcher("getOutlets", graphQLWebPowerSocketDataFetchers.getAllOutlets())
+                        .dataFetcher("getChairs", graphQLGalanterAndJonesDataFetchers.getChairs())
                 )
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("turnLightOn", graphQLHueDataFetchers.turnLightOn())
                         .dataFetcher("setLightColor", graphQLHueDataFetchers.setLightColor())
-                        .dataFetcher("requestChairOn", graphQLGalanterAndJoneDataFetchers.requestChairOn())
+                        .dataFetcher("requestChairOn", graphQLGalanterAndJonesDataFetchers.requestChairOn())
                 )
                 .build();
     }

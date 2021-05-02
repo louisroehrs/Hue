@@ -1,5 +1,5 @@
 
-.outlet {
+.chair {
     border-top-right-radius:20px;
     border-bottom-right-radius:20px;
     padding:5px;
@@ -8,11 +8,11 @@
     display:grid;
     grid-column-gap: 0px;
     grid-column: 2/7;
-    grid-template-columns: 130px auto 50px;
+    grid-template-columns: 60px 150px auto 50px;
     height: 133px;
 }
 
-.outlet .label {
+.chair .label {
     background-color:grey;
     margin:10px;
     padding-top:5px;
@@ -21,11 +21,10 @@
     padding-left:5px;
 }
 
-.outlet .switchOn,
-.outlet .switchOff,
-.outlet .lockedOut,
-.outlet .poweredOn,
-.outlet .poweredOff  {
+.chair .switchOn,
+.chair .switchOff,
+.chair .poweredOn,
+.chair .poweredOff  {
     border-radius: 10px;
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
@@ -38,28 +37,25 @@
     background-color:darkgrey;
 }
 
-.outlet .switchOn,
-.outlet .switchOff,
-.outlet .lockedOut {
+.chair .switchOn,
+.chair .switchOff {
     border-radius: 10px;
     min-width: 90px;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
 }
 
-.outlet .switchOn {
-    background-color:pink;
-}
-.outlet .switchOff {
-    background-color:lightgreen;
+.chair .switchOn {
+    background-color:green;
+    color:lightgreen;
 }
 
-.outlet .poweredOff,
-.outlet .poweredOn {
+.chair .poweredOff,
+.chair .poweredOn {
     margin-right: 10px;
     text-align: center;
 }
-.outlet .poweredOn {
+.chair .poweredOn {
     background-color:orange;
 }
 

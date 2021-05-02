@@ -5,9 +5,9 @@ type Schema {
 
 type Query {
     lightById(id:ID): LightDetail
-    getAllLights: [LightDetail]
-    getAllSensors: [SensorDetail]
-    getAllOutlets: [Outlet]
+    getLights: [LightDetail]
+    getSensors: [SensorDetail]
+    getOutlets: [Outlet]
     getVariables: [Variable]
     getChairs: [Chair]
 }

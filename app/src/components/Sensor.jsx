@@ -1,5 +1,5 @@
 import {React, useState} from "react";
-import Drawer from './Drawer.js';
+import Drawer from './Drawer';
 import DataField from "./DataField";
 import DataFieldGraph from "./DataFieldGraph";
 

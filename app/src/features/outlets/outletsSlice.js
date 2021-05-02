@@ -25,9 +25,10 @@ const outletsSlice  = createSlice ({
       state.outletsLoading = true;
     },
     outletsFetched: (state,action) => {
+      debugger;
       state.outlets.map( outlet => {
-        outlet.outletOn = action.payload[outlet.id].physical_state;
-        outlet.name = action.payload[outlet.id].name;
+        outlet.outletOn = action.payload.data.query[outlet.id].physical_state;
+        outlet.name = action.payload.data.query[outlet.id].name;
         return outlet})
       state.outletsLoading = false;
     },

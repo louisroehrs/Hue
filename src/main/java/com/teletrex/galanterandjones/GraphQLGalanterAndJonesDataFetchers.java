@@ -1,9 +1,9 @@
 package com.teletrex.galanterandjones;
 
 import com.teletrex.galanterandjones.model.Chair;
-import com.teletrex.galanterandjones.model.Outlet;
-import com.teletrex.hue.model.Light;
-import com.teletrex.hue.model.Sensor;
+import com.teletrex.webpowersocket.model.Outlet;
+// import com.teletrex.hue.model.Light;
+// import com.teletrex.hue.model.Sensor;
 import graphql.schema.DataFetcher;
 import io.netty.handler.logging.LogLevel;
 import org.springframework.core.ParameterizedTypeReference;
@@ -27,7 +27,7 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 @Component
-public class GraphQLGalanterAndJoneDataFetchers {
+public class GraphQLGalanterAndJonesDataFetchers {
 
     private static String chairIP = "192.168.1.200";
     private static String username = "admin";

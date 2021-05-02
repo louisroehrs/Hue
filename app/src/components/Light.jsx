@@ -1,6 +1,6 @@
 import {React, useState} from "react";
 import './Light.css';
-import Drawer from './Drawer.js';
+import Drawer from './Drawer';
 import { RgbColorPicker } from "react-colorful";
 import "react-colorful/dist/index.css";
 
