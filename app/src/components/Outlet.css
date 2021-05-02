@@ -1,26 +1,48 @@
 
 .outlet {
-    border-radius:5px;
+    border-top-right-radius:20px;
+    border-bottom-right-radius:20px;
     padding:5px;
     margin: 20px;
     background-color:grey;
-    float:left;
+    display:grid;
+    grid-column-gap: 0px;
+    grid-column: 2/7;
+    grid-template-columns: 60px 150px auto 50px;
+    height: 133px;
 }
 
 .outlet .label {
     background-color:grey;
     margin:10px;
+    padding-top:5px;
+    padding-right:5px;
+    padding-top:5px;
+    padding-left:5px;
 }
 
-.outlet .switchOn, .outlet .switchOff {
-    border-radius: 5px;
+.outlet .switchOn,
+.outlet .switchOff,
+.outlet .poweredOn,
+.outlet .poweredOff  {
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
     padding:5px;
-    margin: 10px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    height:100px;
-    width:100px;
+    padding-left:10px;
+    margin-top: 10px;
+    margin-right:0px;
+    margin-left:5px;
+    margin-bottom: 10px;
     background-color:darkgrey;
+}
+
+.outlet .switchOn,
+.outlet .switchOff {
+    border-radius: 10px;
+    min-width: 90px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
 }
 
 .outlet .switchOn {
@@ -28,14 +50,15 @@
     color:lightgreen;
 }
 
-
-.poweredOn, .poweredOff  {
-    margin: 10px;
-    border-radius:5px;
-    padding:5px;
-    text-align:center;
+.outlet .poweredOff,
+.outlet .poweredOn {
+    margin-right: 10px;
+    text-align: center;
+}
+.outlet .poweredOn {
+    background-color:orange;
 }
 
-.poweredOn {
-    background-color:orange;
+.pressed {
+    background-color:white;
 }

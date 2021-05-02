@@ -294,7 +294,7 @@ body {
 }
 .gridfooter {
   border-bottom-left-radius: 40px;
-  padding-right:40px;
+  padding-right:20px;
 }
 .gridfooterbutton {
   float:right;
@@ -302,8 +302,10 @@ body {
   padding-right:3px;
   color:lemonchiffon;
   background-color: black;
-  margin-left:20px;
+  margin-left:10px;
   font-size: 41px;
+  font-face: unset;
+
   letter-spacing: .5px;
   line-height: .75;
   padding-top:0px;

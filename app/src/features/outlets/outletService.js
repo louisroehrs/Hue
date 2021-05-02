@@ -5,26 +5,43 @@ import {
   outletToggledCallForOn,
   requestedChairsFetched
 } from './outletsSlice'
+import {chairsFetched, chairsFetchedError, chairsLoading} from "../chairs/chairSlice";
 
 const outletService = (dispatch)=> {
+
+  const baseUrl = '';
 
   let outletHeaders= new Headers();
   outletHeaders.append('accept','application/json');
   outletHeaders.append('X-CSRF','x');
   outletHeaders.append('Content-type','application/x-www-form-urlencoded');
-  outletHeaders.append('Authorization', 'Basic ' + btoa("admin:1234"));
 
-  let ipAddress = "192.168.1.200";
-  
   const chairIds = ["One","Two","Three","Four","Five","Six","Seven","Eight"];
-  
+
+  const fetchChairs = async () => {
+    dispatch(chairsLoading());
+    const response = await fetch(
+      baseUrl
+      + '/graphql?query='
+      + encodeURI('{query: getChairs { id name requested poweredOn}}'),
+      {headers: outletHeaders}
+    );
+
+    if (response.ok) {
+      const json = await response.json();
+      dispatch(chairsFetched(json));
+    } else {
+      dispatch(chairsFetchedError("error"));
+    }
+  }
+
   const fetchOutlets= async () => {
     const response = await fetch(
-      'http://'
-      + ipAddress
-      + '/restapi/relay/outlets/all;',
+      baseUrl
+      + '/graphql?query='
+    + encodeURI( '{query: getOutlets { id name physical_state}}'),
       {headers:outletHeaders}
-        );
+      );
     if (response.ok) {
       const json = await response.json();
       dispatch(outletsFetched(json));
@@ -48,7 +65,7 @@ const outletService = (dispatch)=> {
   const callScript = async (scriptName,outlet) => {
     const response = await fetch(
       'http://'
-      + ipAddress
+      + 'ipAddress'
       + '/script.cgi', {
       method: 'POST', 
       headers: outletHeaders,
@@ -63,7 +80,7 @@ const outletService = (dispatch)=> {
 
   const  getRequestedChairs = async () => {
 // {"chairRequest1":true,"chairRequest3":false,"chairRequest2":true,"bunny":"I'm fluffy"}
-    const response = await  fetch('http://' + ipAddress + '/restapi/script/variables/', {
+    const response = await  fetch('http://' + 'ipAddress' + '/restapi/script/variables/', {
       method: 'GET', // or 'PUT'
       headers: outletHeaders
     })
@@ -76,7 +93,7 @@ const outletService = (dispatch)=> {
   const setOutlet = async (outlet,on) => {
     const response = await fetch(
       'http://'
-      + ipAddress
+      + 'ipAddress'
       + '/restapi/relay/outlets/='
       + outlet
       +'/state/',

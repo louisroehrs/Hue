@@ -4,6 +4,8 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.teletrex.hue.GraphQLHueDataFetchers;
 import com.teletrex.galanterandjones.GraphQLGalanterAndJoneDataFetchers;
+import com.teletrex.hue.GraphQLHueDataFetchers;
+import com.teletrex.galanterandjones.GraphQLWebPowerSocketDataFetchers;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
@@ -28,6 +30,9 @@ public class GraphQLProvider {
     GraphQLHueDataFetchers graphQLHueDataFetchers;
     @Autowired
     GraphQLGalanterAndJoneDataFetchers graphQLGalanterAndJoneDataFetchers;
+
+    @Autowired
+    GraphQLWebPowerSocketDataFetchers graphQLWebPowerSocketDataFetchers;
 
     @Bean
     public GraphQL graphQL() {
@@ -55,7 +60,7 @@ public class GraphQLProvider {
                         .dataFetcher("lightById", graphQLHueDataFetchers.getLightById())
                         .dataFetcher("getAllLights", graphQLHueDataFetchers.getAllLights())
                         .dataFetcher("getAllSensors", graphQLHueDataFetchers.getAllSensors())
-           //             .dataFetcher("getAllOutlets", graphQLGalanterAndJoneDataFetchers.getAllOutlets())
+                        .dataFetcher("getAllOutlets", graphQLWebPowerSocketDataFetchers.getAllOutlets())
                         .dataFetcher("getChairs", graphQLGalanterAndJoneDataFetchers.getChairs())
                 )
                 .type(newTypeWiring("Mutation")

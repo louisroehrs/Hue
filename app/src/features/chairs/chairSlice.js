@@ -1,11 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-  chairs: [
-    { id: 0, name: '1', requested: false, poweredOn: false},
-    { id: 1, name: '2', requested: false, poweredOn: false},
-    { id: 2, name: '3', requested: false, poweredOn: false},
-  ],
+  chairs: [] ,
+//    { id: 0, name: '1', requested: false, poweredOn: false},
+//    { id: 1, name: '2', requested: false, poweredOn: false},
+//    { id: 2, name: '3', requested: false, poweredOn: false},
+
   error: null,
 }
 

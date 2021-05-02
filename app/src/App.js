@@ -36,6 +36,7 @@ const App = ({}) =>  {
   useEffect( () => {
     hueBridgeService.fetchLights();
     hueBridgeService.fetchSensors();
+    outletService.fetchOutlets();
     chairService.fetchChairs();
     const interval=setInterval(()=>{
       hueBridgeService.fetchLights();

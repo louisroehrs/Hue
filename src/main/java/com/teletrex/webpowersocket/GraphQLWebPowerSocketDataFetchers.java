@@ -27,7 +27,7 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 @Component
-public class GraphQLGalanterAndJoneDataFetchers {
+public class GraphQLWebPowerSocketDataFetchers {
 
     private static String chairIP = "192.168.1.200";
     private static String username = "admin";
@@ -35,18 +35,6 @@ public class GraphQLGalanterAndJoneDataFetchers {
     private static String protocolIp = "http://" + chairIP;
 
     private static WebClient powerSocketClient;
-
-    private static final HashMap<String,String> scriptName = new HashMap<>();
-    static {
-        scriptName.put("on1", "requestChairOne");
-        scriptName.put("on2", "requestChairTwo");
-        scriptName.put("on3", "requestChairThree");
-        scriptName.put("off1", "chairOffOne");
-        scriptName.put("off2", "chairOffTwo");
-        scriptName.put("off3", "chairOffThree");
-        scriptName.put("alloff", "allChairsOff");
-        scriptName.put("chairsOn", "start_scripts");
-    }
 
     static {
         try {
@@ -69,22 +57,14 @@ public class GraphQLGalanterAndJoneDataFetchers {
         }
     }
 
-    public DataFetcher getChairs() {
+    public DataFetcher getAllOutlets () {
         return dataFetchingEnvironment -> {
-            return getChairsFromWebSocket();
+            return getOutlets();
         };
     }
 
-    private List<Chair> getChairsFromWebSocket () {
+    public List<Outlet> getOutlets () {
         AtomicInteger index = new AtomicInteger(0);
-        /* get requested chairs and socket status for chairs */
-        ParameterizedTypeReference<Map<String, Boolean>> variables = new ParameterizedTypeReference<Map<String,Boolean>>() {};
-        Map<String, Boolean> requestedChairs = (Map<String, Boolean>) getRequestedChairsUrl()
-                .retrieve()
-                .bodyToMono(variables)
-                .block();
-
-        List<Outlet> myOutlets = new ArrayList<Outlet>() {};
 
         List<Outlet> outlets = (List<Outlet>) getOutletsUrl()
                 .retrieve()
@@ -92,50 +72,14 @@ public class GraphQLGalanterAndJoneDataFetchers {
                 .collectList()
                 .block();
 
-        List<Chair> chairs = Arrays.stream(new int[]{1, 2, 3}).mapToObj(chairId ->
-        {
-            Outlet outletForChair = outlets.get(chairId-1);
-            Chair chair = new Chair();
-            chair.setId(chairId);
-            chair.setName(outletForChair.getName());
-            chair.setPoweredOn(outletForChair.getPhysical_state());
-            chair.setRequested(requestedChairs.get("chairRequest" + chairId));
-            return chair;
-        }).collect(toList());
-        return chairs;
+        return outlets;
     }
-
-    public DataFetcher requestChairOn() {
-        return dataFetchingEnvironment -> {
-            String id = dataFetchingEnvironment.getArgument("id");
-            Boolean on = dataFetchingEnvironment.getArgument("on");
-
-            MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
-            formData.add("value#", on?"true":"false");
-
-            String string = (String) requestChairByIdUri(id)
-                    .bodyValue(formData)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-
-            return getChairsFromWebSocket();
-        };
-    }
-
 
     private static WebClient.RequestBodySpec getOutletsUrl () {
         WebClient.RequestBodySpec requestBodySpec =
                 (WebClient.RequestBodySpec) powerSocketClient
                 .get()
                 .uri("/restapi/relay/outlets/");
-        return requestBodySpec;
-    }
-
-    private WebClient.RequestBodySpec getRequestedChairsUrl() {
-        WebClient.RequestBodySpec requestBodySpec =
-                (WebClient.RequestBodySpec) powerSocketClient
-                .get().uri("/restapi/script/variables/");
         return requestBodySpec;
     }
 
@@ -147,11 +91,4 @@ public class GraphQLGalanterAndJoneDataFetchers {
         return requestBodySpec;
     }
 
-    private WebClient.RequestBodySpec requestChairByIdUri(String id) {
-        WebClient.RequestBodySpec requestBodySpec =
-                (WebClient.RequestBodySpec) powerSocketClient
-                        .put()
-                        .uri("/restapi/script/variables/chairRequest" + id.trim() + "/");
-        return requestBodySpec;
-    }
 }
