@@ -40,7 +40,11 @@ const Light = ({
            onClick={onClick}>
         <div className="drawerOpener" onClick={openColor} />
         <div className={"griditemgap"}/>
-        <div className= { on?"on":"off"}>&nbsp;</div>
+        {/* TODO those non apple browsers will not show emojis */}
+        {on &&  <div className="on">☀️</div>}
+
+        {!on && <div className="off">&nbsp;️</div>}
+
         <div className={"griditemgap"}/>
         <div className="color" onClick={openColor} style={{backgroundColor:on?styleText:"black"}}>&nbsp;</div>
         <div className={"griditemgap"}/>

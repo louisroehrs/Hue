@@ -3,25 +3,18 @@ package com.teletrex.webpowersocket;
 import com.teletrex.webpowersocket.model.Outlet;
 import graphql.schema.DataFetcher;
 import io.netty.handler.logging.LogLevel;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.transport.logging.AdvancedByteBufFormat;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 
 @Component
 public class GraphQLWebPowerSocketDataFetchers {

@@ -105,13 +105,14 @@ body {
   margin-right:0px;
   border-radius:0px;
   transition: background-color 2s;
+  text-align: center;
 }
 .off {
   background-color: black;
 }
-
+/* we are displaying an emoji. */
 .on {
-  background-color: lightgreen;
+  background-color: black;
 }
 
 
