@@ -50,12 +50,10 @@ const chairService = (dispatch)=> {
     }
   }
 
-
   return {
     fetchChairs: fetchChairs,
     requestChair : requestChair
   }
-
 }
 
 export default chairService;

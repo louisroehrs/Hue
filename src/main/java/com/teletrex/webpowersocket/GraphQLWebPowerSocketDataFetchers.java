@@ -26,10 +26,10 @@ import static java.util.stream.Collectors.toList;
 @Component
 public class GraphQLWebPowerSocketDataFetchers {
 
-    private static String chairIP = "192.168.1.200";
+    private static String outletIp = "192.168.1.200";
     private static String username = "admin";
     private static String password = "1234";
-    private static String protocolIp = "http://" + chairIP;
+    private static String protocolIp = "http://" + outletIp;
 
     private static WebClient powerSocketClient;
 
@@ -68,8 +68,21 @@ public class GraphQLWebPowerSocketDataFetchers {
                 .bodyToFlux(Outlet.class)
                 .collectList()
                 .block();
-
         return outlets;
+    }
+
+    public DataFetcher switchOutlet() {
+        System.out.println(outletIp);
+        return dataFetchingEnvironment -> {
+            String id = dataFetchingEnvironment.getArgument("id");
+            Boolean on = dataFetchingEnvironment.getArgument("on");
+            String string = (String) turnOutletOnByIdUri(id)
+                    .bodyValue("value="+ (on ? "true":"false"))
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return getOutlets();
+        };
     }
 
     private static WebClient.RequestBodySpec getOutletsUrl () {
@@ -80,7 +93,7 @@ public class GraphQLWebPowerSocketDataFetchers {
         return requestBodySpec;
     }
 
-    private WebClient.RequestBodySpec turnSocketOnByIdUri(String id) {
+    private WebClient.RequestBodySpec turnOutletOnByIdUri(String id) {
         WebClient.RequestBodySpec requestBodySpec =
                 (WebClient.RequestBodySpec) powerSocketClient
                         .put()

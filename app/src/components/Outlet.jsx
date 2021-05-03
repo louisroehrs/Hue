@@ -1,5 +1,5 @@
+import {React, useState, useEffect} from 'react';
 import './Outlet.css';
-import {useEffect, useState} from "react";
 
 const  Outlet =({
   id, 
@@ -26,10 +26,14 @@ const  Outlet =({
   }
 
   return (
-    <div class="outlet"  onClick={handleOnClick}>
-      <div class="label">{label}</div>
-      <div class={exclusive ? "lockedOut": ( outletOn ? 'switchOn': 'switchOff')} >{exclusive ? "Locked out" : (outletOn ? "Shutdown" : "Energize")}</div>
-      <div class={outletOn ? 'poweredOn': 'poweredOff'} >{outletOn?"On": "Off"}</div>
+    <div class="griditem outlet"  onClick={handleOnClick}>
+      <div class="name">{label}</div>
+      {/* reverse order float right */}
+      <div className="griditemgap"></div>
+      <div className={outletOn ? 'poweredOn' : 'poweredOff'}>{outletOn ? "On" : "Off"}</div>
+      <div className="griditemgap"></div>
+      <div class={exclusive ? "lockedOut": (( outletOn ? 'switchOn': 'switchOff') + (pressed ? " pressed" :""))} >{exclusive ? "Locked out" : (outletOn ? "Shutdown" : "Energize")}</div>
+      <div className="griditemgap"></div>
     </div>
   );
 }

@@ -89,6 +89,13 @@ body {
   margin:0px;
   float:right;
 }
+.drawerOpener {
+  float:right;
+  height:40px;
+  width:60px;
+  margin-right: -60px;
+}
+
 .on, .off, .color {
   background-color: white;
   width:40px;
@@ -97,10 +104,17 @@ body {
   margin:0px;
   margin-right:0px;
   border-radius:0px;
+  transition: background-color 2s;
 }
 .off {
   background-color: black;
 }
+
+.on {
+  background-color: lightgreen;
+}
+
+
 
 .light {
   color:#000;
@@ -167,43 +181,6 @@ body {
   height:30px;
   background-color:green;
   margin-left: auto;
-}
-
-#nowplaying {
-  position:fixed;
-  background-color:#ddd;
-  right:0px;
-  top:0px;
-  left:0px;
-  padding:3px;
-  -webkit-box-shadow: 0px 1px 1px #444;
-  box-shadow: 1px 1px 1px #444;
-}
-
-#npshadow {
-  min-height:42px;
-}
-
-
-#nowplaying {
-  background-color:black;
-  color:  rgba( 243,243,200,0.5);
-  margin:4px;
-  font-size:12vw;
-  height:90px;
-  padding:3px;
-}
-
-
-
-.isplaying {
-  display:none;
-}
-.isstopped {
-  display:block;
-}
-.ispaused {
-  display:none;
 }
 
 
@@ -305,7 +282,6 @@ body {
   margin-left:10px;
   font-size: 41px;
   font-face: unset;
-
   letter-spacing: .5px;
   line-height: .75;
   padding-top:0px;

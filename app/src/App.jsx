@@ -61,9 +61,7 @@ const App = ({}) =>  {
   }
 
   const handleOnOutletClick = (outlet) => {
-    if (outlet.exclusive) {
-      outletService.toggleCallForOn(outlet);
-    } else {
+    if (!outlet.exclusive) {
       outletService.setOutlet(outlet.id,!outlet.outletOn);
     }
     outletService.fetchOutlets();
@@ -85,7 +83,7 @@ const App = ({}) =>  {
         </div>
       </div>
       <div className={"scrollinglist"}
-           style={{"height":(document.body.clientHeight-90)+"px"}}>
+           style={{"height":(document.body.clientHeight-110)+"px"}}>
 
         <div className={"grid"}>
           {
@@ -146,7 +144,7 @@ const App = ({}) =>  {
                 <>
                   <div className={"gridlefter"}/>
                   <Outlet
-                    key = {outlet.id}
+                    key = {outlet.name}
                     id={outlet.id}
                     label={outlet.name}
                     exclusive = {outlet.exclusive}

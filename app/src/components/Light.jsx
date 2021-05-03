@@ -38,10 +38,11 @@ const Light = ({
     <>
       <div className ="griditem"
            onClick={onClick}>
+        <div className="drawerOpener" onClick={openColor} />
         <div className={"griditemgap"}/>
         <div className= { on?"on":"off"}>&nbsp;</div>
         <div className={"griditemgap"}/>
-        <div className="color" onClick={openColor} style={{backgroundColor:styleText}}>&nbsp;</div>
+        <div className="color" onClick={openColor} style={{backgroundColor:on?styleText:"black"}}>&nbsp;</div>
         <div className={"griditemgap"}/>
         <div className="name">{name}</div>
         <Drawer open={drawerOpen}>

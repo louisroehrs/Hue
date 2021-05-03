@@ -25,7 +25,6 @@ const outletsSlice  = createSlice ({
       state.outletsLoading = true;
     },
     outletsFetched: (state,action) => {
-      debugger;
       state.outlets.map( outlet => {
         outlet.outletOn = action.payload.data.query[outlet.id].physical_state;
         outlet.name = action.payload.data.query[outlet.id].name;
@@ -33,9 +32,8 @@ const outletsSlice  = createSlice ({
       state.outletsLoading = false;
     },
 
-    // payload is an outlet
-    outletToggledCallForOn: (state,action) => {
-      state.outlets[action.payload.id].callForOn = !action.payload.callForOn;
+    // payload is nada
+    outletSet: (state,action) => {
       state.outletsLoading = false;
     },
 
@@ -43,13 +41,6 @@ const outletsSlice  = createSlice ({
       state.outletsLoading = false;
       state.error = action.payload;
     },
-
-    requestedChairsFetched: (state,action) => {
-      state.outlets[0].callForOn = action.payload["chairRequest1"];
-      state.outlets[1].callForOn = action.payload["chairRequest2"];
-      state.outlets[2].callForOn = action.payload["chairRequest3"];
-    },
-
   }
 })
 
@@ -58,8 +49,7 @@ export const {
   outletsLoading,
   outletsFetched,
   outletsFetchedError,
-  outletToggledCallForOn,
-  requestedChairsFetched
+  outletSet,
 } = outletsSlice.actions
 
 export default outletsSlice.reducer

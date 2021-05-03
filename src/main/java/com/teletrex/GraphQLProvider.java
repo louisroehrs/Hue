@@ -65,6 +65,7 @@ public class GraphQLProvider {
                 .type(newTypeWiring("Mutation")
                         .dataFetcher("turnLightOn", graphQLHueDataFetchers.turnLightOn())
                         .dataFetcher("setLightColor", graphQLHueDataFetchers.setLightColor())
+                        .dataFetcher("turnOutletOn", graphQLWebPowerSocketDataFetchers.switchOutlet())
                         .dataFetcher("requestChairOn", graphQLGalanterAndJonesDataFetchers.requestChairOn())
                 )
                 .build();

@@ -1,24 +1,24 @@
 
 .outlet {
+    position:relative;
     border-top-right-radius:20px;
     border-bottom-right-radius:20px;
-    padding:5px;
-    margin: 20px;
-    background-color:grey;
-    display:grid;
-    grid-column-gap: 0px;
+    margin: 10px;
     grid-column: 2/7;
-    grid-template-columns: 130px auto 50px;
-    height: 133px;
+    height: 80px;
+    text-transform: uppercase;
 }
+/*
+.outlet .name {
+    position:absolute;
+    bottom:0px;
+    margin-left:10px;
+    text-transform: uppercase;
+}
+*/
 
-.outlet .label {
-    background-color:grey;
-    margin:10px;
-    padding-top:5px;
-    padding-right:5px;
-    padding-top:5px;
-    padding-left:5px;
+.outlet .griditemgap {
+    height:80px;
 }
 
 .outlet .switchOn,
@@ -26,43 +26,57 @@
 .outlet .lockedOut,
 .outlet .poweredOn,
 .outlet .poweredOff  {
-    border-radius: 10px;
-    border-bottom-left-radius: 0px;
-    border-top-left-radius: 0px;
+    float:right;
     padding:5px;
     padding-left:10px;
-    margin-top: 10px;
-    margin-right:0px;
-    margin-left:5px;
-    margin-bottom: 10px;
-    background-color:darkgrey;
+    background-color:black;
+    height: 80px;
+    color: #6496fa;
+    min-width: 50px;
 }
 
 .outlet .switchOn,
 .outlet .switchOff,
 .outlet .lockedOut {
-    border-radius: 10px;
-    min-width: 90px;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
+    min-width: 120px;
 }
 
 .outlet .switchOn {
-    background-color:pink;
+    background-color: crimson;
+    color:black
 }
 .outlet .switchOff {
-    background-color:lightgreen;
+    background-color: greenyellow;
+    color: black;
 }
 
 .outlet .poweredOff,
 .outlet .poweredOn {
-    margin-right: 10px;
     text-align: center;
 }
+
 .outlet .poweredOn {
     background-color:orange;
+    animation-name: pulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    color:black;
 }
 
-.pressed {
+.outlet .pressed {
     background-color:white;
 }
+
+
+@keyframes pulse {
+    0% {
+        background-color: darkgoldenrod;
+    }
+    50% {
+        background-color: orange;
+    }
+    100% {
+        background-color: darkgoldenrod;
+    }
+}
+
