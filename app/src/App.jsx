@@ -108,7 +108,7 @@ const App = ({}) =>  {
           <div className={"grid"}>
             {
               (currentMode === "LIGHTS" &&
-                lights.map(light => (
+                [...lights].sort((a, b) => a.name.localeCompare(b.name)).map(light => (
                   <>
                     <div className={"gridlefter"}/>
                     <Light
@@ -127,7 +127,7 @@ const App = ({}) =>  {
               )
               || (
                 currentMode === "SENSORS" &&
-                sensors.map(sensor => (
+                [...sensors].sort((a, b) => a.name.localeCompare(b.name)).map(sensor => (
                   <>
                     <div className={"gridlefter"}/>
                     <Sensor
@@ -218,7 +218,7 @@ const App = ({}) =>  {
             <div className={"grid"}>
               {
                 (currentMode === "LIGHTS" &&
-                  lights.map(light => (
+                  [...lights].sort((a, b) => a.name.localeCompare(b.name)).map(light => (
                     <>
                       <div className={"gridlefter"}/>
                       <Light
@@ -237,7 +237,7 @@ const App = ({}) =>  {
                 )
                 || (
                   currentMode === "SENSORS" &&
-                  sensors.map(sensor => (
+                  [...sensors].sort((a, b) => a.name.localeCompare(b.name)).map(sensor => (
                     <>
                       <div className={"gridlefter"}/>
                       <Sensor
