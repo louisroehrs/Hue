@@ -2,19 +2,15 @@ package com.teletrex.webpowersocket;
 
 import com.teletrex.webpowersocket.model.Outlet;
 import graphql.schema.DataFetcher;
-import io.netty.handler.logging.LogLevel;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.netty.http.client.HttpClient;
-import reactor.netty.transport.logging.AdvancedByteBufFormat;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Base64;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class GraphQLWebPowerSocketDataFetchers {
@@ -24,44 +20,31 @@ public class GraphQLWebPowerSocketDataFetchers {
     private static String password = "1234";
     private static String protocolIp = "http://" + outletIp;
 
-    private static WebClient powerSocketClient;
+    private final RestTemplate restTemplate;
+    private final HttpHeaders headers;
 
-    static {
-        try {
-            HttpClient httpClient = HttpClient
-                    .create()
-                    .wiretap("reactor.netty.http.client.HttpClient",
-                            LogLevel.INFO, AdvancedByteBufFormat.TEXTUAL);
-            powerSocketClient = WebClient
-                    .builder()
-// debugging                    .clientConnector(new ReactorClientHttpConnector(httpClient))
-                    .baseUrl(protocolIp)
-                    .defaultCookie("cookieKey", "cookieValue")
-                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                    .defaultHeader("X-CSRF", "true")
-                    .defaultHeader(HttpHeaders.AUTHORIZATION, "Basic "+ Base64.getEncoder().encodeToString((username +":" + password).getBytes("UTF-8")))
-                    .defaultUriVariables(Collections.singletonMap("url", protocolIp))
-                    .build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+    public GraphQLWebPowerSocketDataFetchers() {
+        this.restTemplate = new RestTemplate();
+        this.headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("X-CSRF", "true");
+        String auth = username + ":" + password;
+        byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes());
+        headers.add(HttpHeaders.AUTHORIZATION, "Basic " + new String(encodedAuth));
     }
 
-    public DataFetcher getAllOutlets () {
-        return dataFetchingEnvironment -> {
-            return getOutlets();
-        };
+    public DataFetcher getAllOutlets() {
+        return dataFetchingEnvironment -> getOutlets();
     }
 
-    public List<Outlet> getOutlets () {
-        AtomicInteger index = new AtomicInteger(0);
-
-        List<Outlet> outlets = (List<Outlet>) getOutletsUrl()
-                .retrieve()
-                .bodyToFlux(Outlet.class)
-                .collectList()
-                .block();
-        return outlets;
+    public List<Outlet> getOutlets() {
+        ResponseEntity<List<Outlet>> response = restTemplate.exchange(
+            protocolIp + "/restapi/relay/outlets/",
+            HttpMethod.GET,
+            new HttpEntity<>(headers),
+            new ParameterizedTypeReference<List<Outlet>>() {}
+        );
+        return response.getBody();
     }
 
     public DataFetcher switchOutlet() {
@@ -69,29 +52,24 @@ public class GraphQLWebPowerSocketDataFetchers {
         return dataFetchingEnvironment -> {
             String id = dataFetchingEnvironment.getArgument("id");
             Boolean on = dataFetchingEnvironment.getArgument("on");
-            String string = (String) turnOutletOnByIdUri(id)
-                    .bodyValue("value="+ (on ? "true":"false"))
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
+
+            MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+            formData.add("value", on ? "true" : "false");
+
+            HttpHeaders requestHeaders = new HttpHeaders();
+            requestHeaders.addAll(headers);
+            requestHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(formData, requestHeaders);
+            
+            restTemplate.exchange(
+                protocolIp + "/restapi/relay/outlets/" + id.trim() + "/state/",
+                HttpMethod.PUT,
+                request,
+                String.class
+            );
+
             return getOutlets();
         };
     }
-
-    private static WebClient.RequestBodySpec getOutletsUrl () {
-        WebClient.RequestBodySpec requestBodySpec =
-                (WebClient.RequestBodySpec) powerSocketClient
-                .get()
-                .uri("/restapi/relay/outlets/");
-        return requestBodySpec;
-    }
-
-    private WebClient.RequestBodySpec turnOutletOnByIdUri(String id) {
-        WebClient.RequestBodySpec requestBodySpec =
-                (WebClient.RequestBodySpec) powerSocketClient
-                        .put()
-                        .uri("/restapi/relay/outlets/"+id.trim()+"/state/");
-        return requestBodySpec;
-    }
-
 }

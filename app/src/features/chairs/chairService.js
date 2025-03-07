@@ -16,6 +16,7 @@ const chairService = (dispatch)=> {
 
   const fetchChairs = async () => {
     dispatch(chairsLoading());
+    /*
     const response = await fetch(
       baseUrl
       + '/graphql?query='
@@ -28,11 +29,11 @@ const chairService = (dispatch)=> {
       dispatch(chairsFetched(json));
     } else {
       dispatch(chairsFetchedError("error"));
-    }
+     } */
   }
 
   const requestChair = async (id, on) => {
-    const response = await fetch(
+    /* const response = await fetch(
       baseUrl
       + '/graphql',
       {
@@ -45,9 +46,9 @@ const chairService = (dispatch)=> {
     if (response.ok) {
       const json = await response.json();
       dispatch(chairRequested(json));
-    } else {
+    } else { */
       dispatch(chairsFetchedError({error: "error"}));
-    }
+    // }
   }
 
   return {

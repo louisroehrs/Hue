@@ -12,12 +12,10 @@ import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestTemplate;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -26,61 +24,79 @@ import java.util.*;
 @PropertySource("classpath:application.properties")
 public class GraphQLHueDataFetchers {
 
-    private static String hueBridgeIP = "192.168.1.97";
-    private static String apiKey = "DMN24zKLkv4uClyfk3smBMB1VyB8BeVpxq1YOndO";
+    @Value("${hue.ip}")
+    private String hueBridgeIP;
 
-    private static String baseUrl = "http://" + hueBridgeIP + "/api/"+ apiKey;
-    private static WebClient hueHubClient =  WebClient
-            .builder()
-            .baseUrl(baseUrl)
-            .defaultCookie("cookieKey", "cookieValue")
-            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .defaultUriVariables(Collections.singletonMap("url", baseUrl))
-            .build();
+    @Value("${hue.apikey}")
+    private String apiKey;
 
-    private static WebClient.RequestBodySpec getLightsUri =
-            (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights");
+    private final RestTemplate restTemplate;
+    private final HttpHeaders headers;
+    private String baseUrl;
 
+    public GraphQLHueDataFetchers() {
+        this.restTemplate = new RestTemplate();
+        this.headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+    }
+
+    private String getBaseUrl() {
+        if (baseUrl == null) {
+            System.out.println("hueBridgeIP:" + hueBridgeIP);
+            System.out.println("apiKey:" + apiKey);
+            baseUrl = "http://" + hueBridgeIP + "/api/" + apiKey;
+        }
+        return baseUrl;
+    }
 
     public DataFetcher getLightById() {
         return dataFetchingEnvironment -> {
             String lightId = dataFetchingEnvironment.getArgument("id");
-            Light result = getLightByIdUri(lightId).retrieve().bodyToMono(Light.class).block();
+            ResponseEntity<Light> response = restTemplate.exchange(
+                getBaseUrl() + "/lights/" + lightId.trim(),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                Light.class
+            );
+            Light result = response.getBody();
             result.setId(lightId);
             return result;
         };
     }
 
     public DataFetcher getAllLights() {
-        return dataFetchingEnvironment -> {
-            // Convert a Map returned from an API to a list of objects, and stuff the key id into each object.
-            return getLights();
-        };
+        return dataFetchingEnvironment -> getLights();
     }
 
-  //  @org.jetbrains.annotations.NotNull
     private Collection<Light> getLights() {
-        ParameterizedTypeReference<Map<String, Light>> myLights = new ParameterizedTypeReference<Map<String,Light>>() {};
-        Map<String, Light> lights = (Map<String, Light>) getAllLightsUri()
-                .retrieve()
-                .bodyToMono(myLights)
-                .block();
-        lights.forEach( (k,v) -> v.setId(k) );
+        ResponseEntity<Map<String, Light>> response = restTemplate.exchange(
+            getBaseUrl() + "/lights/",
+            HttpMethod.GET,
+            new HttpEntity<>(headers),
+            new ParameterizedTypeReference<Map<String, Light>>() {}
+        );
+        Map<String, Light> lights = response.getBody();
+        lights.forEach((k, v) -> v.setId(k));
         return lights.values();
     }
 
     public DataFetcher turnLightOn() {
         System.out.println(hueBridgeIP);
+        System.out.println(apiKey);
         return dataFetchingEnvironment -> {
             String id = dataFetchingEnvironment.getArgument("id");
             Boolean on = dataFetchingEnvironment.getArgument("on");
             Map<String, Object> body = new HashMap<>();
-            body.put("on",on);
-            String string = (String) turnLightOnByIdUri(id)
-                    .bodyValue(body)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
+            body.put("on", on);
+
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+            restTemplate.exchange(
+                getBaseUrl() + "/lights/" + id.trim() + "/state",
+                HttpMethod.PUT,
+                request,
+                String.class
+            );
+
             return getLights();
         };
     }
@@ -91,59 +107,37 @@ public class GraphQLHueDataFetchers {
             Integer bri = dataFetchingEnvironment.getArgument("bri");
             Integer hue = dataFetchingEnvironment.getArgument("hue");
             Integer sat = dataFetchingEnvironment.getArgument("sat");
+            
             Map<String, Object> body = new HashMap<>();
-            body.put("hue",hue);
-            body.put("bri",bri);
-            body.put("sat",sat);
-            String string = (String) setLightColorByIdUri(id)
-                    .bodyValue(body)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
+            body.put("hue", hue);
+            body.put("bri", bri);
+            body.put("sat", sat);
+
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+            restTemplate.exchange(
+                getBaseUrl() + "/lights/" + id.trim() + "/state",
+                HttpMethod.PUT,
+                request,
+                String.class
+            );
+
             return getLights();
         };
     }
 
     public DataFetcher getAllSensors() {
-        return dataFetchingEnvironment -> {
-            // Convert a Map returned from an API to a list of objects, and stuff the key id into each object.
-            return getSensors();
-        };
+        return dataFetchingEnvironment -> getSensors();
     }
 
-    //  @org.jetbrains.annotations.NotNull
     private Collection<Sensor> getSensors() {
-        ParameterizedTypeReference<Map<String, Sensor>> mySensors = new ParameterizedTypeReference<Map<String,Sensor>>() {};
-        Map<String, Sensor> sensors = (Map<String, Sensor>) getAllSensorsUri()
-                .retrieve()
-                .bodyToMono(mySensors)
-                .block();
-        sensors.forEach( (k,v) -> v.setId(k));
+        ResponseEntity<Map<String, Sensor>> response = restTemplate.exchange(
+            getBaseUrl() + "/sensors/",
+            HttpMethod.GET,
+            new HttpEntity<>(headers),
+            new ParameterizedTypeReference<Map<String, Sensor>>() {}
+        );
+        Map<String, Sensor> sensors = response.getBody();
+        sensors.forEach((k, v) -> v.setId(k));
         return sensors.values();
     }
-
-    private WebClient.RequestBodySpec getLightByIdUri(String id) {
-        WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights/" + id.trim());
-        return requestBodySpec;
-    }
-
-    private WebClient.RequestBodySpec getAllLightsUri() {
-        WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/lights/");
-        return requestBodySpec;
-    }
-
-    private WebClient.RequestBodySpec turnLightOnByIdUri(String id) {
-        WebClient.RequestBodySpec requestBodySpec = (WebClient.RequestBodySpec) hueHubClient.put().uri("/lights/"+id.trim()+"/state");
-        return requestBodySpec;
-    }
-    private WebClient.RequestBodySpec setLightColorByIdUri(String id) {
-        WebClient.RequestBodySpec requestBodySpec = (WebClient.RequestBodySpec) hueHubClient.put().uri("/lights/"+id.trim()+"/state");
-        return requestBodySpec;
-    }
-
-    private WebClient.RequestBodySpec getAllSensorsUri() {
-        WebClient.RequestBodySpec requestBodySpec =  (WebClient.RequestBodySpec) hueHubClient.get().uri("/sensors/");
-        return requestBodySpec;
-    }
-
 }

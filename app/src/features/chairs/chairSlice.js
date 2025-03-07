@@ -17,12 +17,15 @@ const chairSlice  = createSlice ({
       state.chairsLoading = true;
     },
     chairsFetched: (state,action) => {
-      state.chairs= action.payload.data.query.map( chair => {
-        chair.name = chair.name;
-        chair.requested = chair.requested;
-        chair.poweredOn = chair.poweredOn;
-        return chair})
-      state.chairsLoading = false;
+      if (action.payload.data.query) {
+        state.chairs = action.payload.data.query.map(chair => {
+          chair.name = chair.name;
+          chair.requested = chair.requested;
+          chair.poweredOn = chair.poweredOn;
+          return chair
+        })
+        state.chairsLoading = false;
+      }
     },
 
     chairRequested: (state,action) => {

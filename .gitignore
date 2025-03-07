@@ -1,4 +1,5 @@
 server/src/main/resources/public
+src/main/resources/static
 .DS_Store
 .settings
 
@@ -17,3 +18,11 @@ node_modules
 *.*~
 \#*.*\#
 notes
+
+# logs
+logs
+*.log
+*.log.*
+*.log.*.*
+
+.eslintcache

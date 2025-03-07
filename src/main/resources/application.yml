@@ -7,18 +7,17 @@ graphql:
   servlet:
     mapping: /graphql
     enabled: true
-# if you want to @ExceptionHandler annotation for custom GraphQLErrors
+    # if you want to @ExceptionHandler annotation for custom GraphQLErrors
     exception-handlers-enabled: true
     contextSetting: PER_REQUEST_WITH_INSTRUMENTATION
 
 spring:
   profiles:
-    active: @spring.profiles.active@
+    active: dev
   security:
 
 hue:
-  apikeymidrock: ${hue.apikeymidrock:"DMN24zKLkv4uClyfk3smBMB1VyB8BeVpxq1YOndO"}
-  apikey: ${hue.apikey:wXe25yPzGmlLKQTIvA7Ug-is1XU443e1JT7jzuT9}
-  ip: ${hue.ip:192.168.1.206}
-
-
+  apikeymidrock: "DMN24zKLkv4uClyfk3smBMB1VyB8BeVpxq1YOndO"
+  ip: "192.168.1.206"
+  api-key: "wXe25yPzGmlLKQTIvA7Ug-is1XU443e1JT7jzuT9" 
+  

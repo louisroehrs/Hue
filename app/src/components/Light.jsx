@@ -15,6 +15,7 @@ const Light = ({
                  hue,
                  sat,
                  onClick,
+                 className,
                  onColorChange:onColorChangeProp
                }) => {
 

@@ -7,7 +7,7 @@ import {
   sensorsFetchedError
 } from "./hueBridgeSlice";
 
-const baseUrl = ''; 
+const baseUrl = '';
 
 const hueBridgeService = (dispatch)=> {
     let headers = new Headers();
@@ -16,12 +16,18 @@ const hueBridgeService = (dispatch)=> {
 
   const fetchLights = async () => {
     dispatch(lightsLoading());
+
     const response = await fetch(
       baseUrl
       + '/graphql?query='
       + encodeURI('{query: getLights { id name state {on, hue, bri, sat}}}'),
       {headers: headers}
     );
+
+//    const response = await fetch (
+//      "/mockdata/lightsmock.json",
+//      {headers: headers}
+//    )
 
     if (response.ok) {
       const json = await response.json();
