@@ -47,7 +47,7 @@
 						<executions>
 							<execution>
 								<id>copy-resources</id>
-								<phase>prepare-package</phase>
+								<phase>process-resources</phase>
 								<goals>
 									<goal>copy-resources</goal>
 								</goals>
@@ -77,6 +77,7 @@
 								<goals>
 									<goal>install-node-and-yarn</goal>
 								</goals>
+								<phase>initialize</phase>
 							</execution>
 							<execution>
 								<id>yarn-install</id>
@@ -86,27 +87,14 @@
 								<configuration>
 									<arguments>install</arguments>
 								</configuration>
-								<phase>generate-resources</phase>
+								<phase>initialize</phase>
 							</execution>
-							<!--<execution>
-								<id>yarn-test</id>
-								<goals>
-									<goal>yarn</goal>
-								</goals>
-								<phase>test</phase>
-								<configuration>
-									<arguments>test</arguments>
-									<environmentVariables>
-										<CI>true</CI>
-									</environmentVariables>
-								</configuration>
-							</execution> -->
 							<execution>
 								<id>build-frontend</id>
 								<goals>
 									<goal>yarn</goal>
 								</goals>
-								<phase>prepare-package</phase>
+								<phase>generate-resources</phase>
 								<configuration>
 									<arguments>build</arguments>
 								</configuration>
