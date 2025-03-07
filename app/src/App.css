@@ -84,7 +84,7 @@ body {
 }
 .griditemgap {
   background-color: black;
-  width:5px;
+  width:10px;
   height:40px;
   margin:0px;
   float:right;
@@ -191,7 +191,7 @@ body {
 
 .grid {
   display:grid;
-  grid-gap:4px;
+  grid-gap:0px;
   grid-template-columns: 15px 174px auto 90px 50px 12px;
   grid-auto-rows: minmax(20px, auto);
   margin-bottom:4px;
@@ -211,7 +211,7 @@ body {
 .gridheaderbutton,.gridheaderend {
   float:right;
   color: #000;
-  width:40px;
+  width:56px;
   height:50px;
   background-color: rgba(200,225,250,1);
   font-family: bold Okuda 25pt;
@@ -224,7 +224,7 @@ body {
 }
 .gridheadergap {
   float:right;
-  width:4px;
+  width:8px;
   height:50px;
   background-color: black;
 }
@@ -255,7 +255,21 @@ body {
   min-height:40px;
   padding:0px;
   padding-right:60px;
-  margin:3px;
+  margin:5px;
+  padding-left:10px;
+  letter-spacing: 1px;
+  border-top-right-radius:20px;
+  border-bottom-right-radius:20px;
+}
+.emptygriditem
+{
+  position: relative;
+  grid-column: 2/6;
+  color:#000;
+  min-height:400px;
+  padding:0px;
+  padding-right:60px;
+  margin:5px;
   padding-left:10px;
   letter-spacing: 1px;
   border-top-right-radius:20px;
@@ -291,8 +305,8 @@ body {
 }
 .gridfooterbutton {
   float:right;
-  padding-left:3px;
-  padding-right:3px;
+  padding-left:4px;
+  padding-right:2px;
   color:lemonchiffon;
   background-color: black;
   margin-left:10px;

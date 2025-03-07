@@ -208,6 +208,7 @@ const App = ({}) =>  {
               <div className={"gridheaderend"}/>
               <div className={"gridheadergap"}/>
               <div className={"gridheaderbutton"}/>
+              <div className={"gridheadergap"}/>
               <div className={"gridtitle"}>{currentMode}</div>
               <div className={"gridheadergap"}/>
             </div>
@@ -285,6 +286,10 @@ const App = ({}) =>  {
                   ))
                 )
               }
+            </div>
+            <div className={"grid"}>
+              <div className={"gridlefter"}/>
+              <div className={"emptygriditem"}/>
             </div>
           </div>
           <div className={"grid"}>
