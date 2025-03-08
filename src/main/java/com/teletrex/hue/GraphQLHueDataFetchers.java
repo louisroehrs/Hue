@@ -8,7 +8,12 @@ import com.google.common.io.Resources;
 import com.teletrex.hue.model.Light;
 import com.teletrex.hue.model.Lights;
 import com.teletrex.hue.model.Sensor;
+import com.teletrex.hue.service.HueDiscoveryService;
+
 import graphql.schema.DataFetcher;
+import lombok.extern.slf4j.Slf4j;
+
+import org.checkerframework.checker.units.qual.h;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,23 +25,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+@Slf4j
 @Component
-@PropertySource("classpath:application.properties")
 public class GraphQLHueDataFetchers {
 
-    @Value("${hue.ip}")
-    private String hueBridgeIP;
 
-    @Value("${hue.apikey}")
+    private String hueBridgeIP;
     private String apiKey;
 
     private final RestTemplate restTemplate;
     private final HttpHeaders headers;
     private String baseUrl;
 
-    public GraphQLHueDataFetchers() {
+    public GraphQLHueDataFetchers(HueDiscoveryService hueDiscoveryService) {
         this.restTemplate = new RestTemplate();
         this.headers = new HttpHeaders();
+        this.hueBridgeIP = hueDiscoveryService.getHueIp();
+        this.apiKey = hueDiscoveryService.getApiKey();
+        log.info("hueip = {}", hueBridgeIP);
         headers.setContentType(MediaType.APPLICATION_JSON);
     }
 
