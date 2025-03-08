@@ -1,28 +1,18 @@
 package com.teletrex.hue;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.io.Resources;
+
 import com.teletrex.hue.model.Light;
-import com.teletrex.hue.model.Lights;
 import com.teletrex.hue.model.Sensor;
 import com.teletrex.hue.service.HueDiscoveryService;
 
 import graphql.schema.DataFetcher;
 import lombok.extern.slf4j.Slf4j;
 
-import org.checkerframework.checker.units.qual.h;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 @Slf4j
