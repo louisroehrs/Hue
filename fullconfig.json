@@ -2,7 +2,7 @@
   "lights": {
     "1": {
       "state": {
-        "on": false,
+        "on": true,
         "bri": 77,
         "hue": 8402,
         "sat": 140,
@@ -304,7 +304,7 @@
       "state": {
         "on": true,
         "bri": 77,
-        "hue": 8402,
+        "hue": 4402,
         "sat": 140,
         "effect": "none",
         "xy": [
@@ -448,7 +448,7 @@
       "state": {
         "on": true,
         "bri": 77,
-        "hue": 8402,
+        "hue": 1000,
         "sat": 140,
         "effect": "none",
         "xy": [
