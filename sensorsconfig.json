@@ -74,7 +74,7 @@
       },
       "config": {
         "on": true,
-        "battery": 100,
+        "battery": 90,
         "reachable": true,
         "pending": []
       },
@@ -129,7 +129,7 @@
       },
       "config": {
         "on": true,
-        "battery": 100,
+        "battery": 80,
         "reachable": true,
         "pending": []
       },
@@ -174,7 +174,7 @@
       },
       "config": {
         "on": true,
-        "battery": 100,
+        "battery": 60,
         "reachable": true,
         "pending": []
       },
@@ -263,7 +263,7 @@
       },
       "config": {
         "on": true,
-        "battery": 100,
+        "battery": 40,
         "reachable": true,
         "pending": []
       },
@@ -308,7 +308,7 @@
       },
       "config": {
         "on": true,
-        "battery": 100,
+        "battery": 25,
         "reachable": true,
         "pending": []
       },
@@ -363,7 +363,7 @@
       },
       "config": {
         "on": true,
-        "battery": 100,
+        "battery": 19,
         "reachable": true,
         "pending": []
       },
@@ -408,7 +408,7 @@
       },
       "config": {
         "on": true,
-        "battery": 100,
+        "battery": 0,
         "reachable": true,
         "pending": []
       },
