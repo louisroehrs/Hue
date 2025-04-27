@@ -1,0 +1,1152 @@
+{
+    "1": {
+      "state": {
+        "daylight": false,
+        "lastupdated": "2020-12-31T00:30:00"
+      },
+      "config": {
+        "on": true,
+        "configured": true,
+        "sunriseoffset": 30,
+        "sunsetoffset": -30
+      },
+      "name": "Daylight",
+      "type": "Daylight",
+      "modelid": "PHDL00",
+      "manufacturername": "Signify Netherlands B.V.",
+      "swversion": "1.0"
+    },
+    "2": {
+      "state": {
+        "rotaryevent": 1,
+        "expectedrotation": 280,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-12-29T22:59:58"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-02T22:29:12"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Laundry Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:88:b7-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "3": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-29T22:59:58"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-02T22:29:12"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 2",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:88:b7-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "4": {
+      "state": {
+        "rotaryevent": 2,
+        "expectedrotation": 128,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-12-29T22:29:33"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-02T22:03:10"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Closet Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:88:b6-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "5": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-30T16:52:39"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-02T22:03:10"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 4",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:88:b6-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "6": {
+      "state": {
+        "flag": false,
+        "lastupdated": "2020-07-21T05:01:00"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Go to sleep",
+      "type": "CLIPGenericFlag",
+      "modelid": "GOTOSLEEP",
+      "manufacturername": "Philips",
+      "swversion": "A_1",
+      "uniqueid": "L_05_zLq8P",
+      "recycle": true
+    },
+    "7": {
+      "state": {
+        "flag": false,
+        "lastupdated": "2020-09-10T02:52:05"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Timer.companion",
+      "type": "CLIPGenericFlag",
+      "modelid": "PHA_CTRL_START",
+      "manufacturername": "Philips",
+      "swversion": "1.0",
+      "uniqueid": "qHA9rJRYwL4h",
+      "recycle": true
+    },
+    "8": {
+      "state": {
+        "rotaryevent": 2,
+        "expectedrotation": 60,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-12-28T19:26:34"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-12T21:09:42"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Hallway Front Door Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:e1:64-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "9": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-28T19:26:33"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-12T21:09:42"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 6",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:e1:64-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "10": {
+      "state": {
+        "rotaryevent": 1,
+        "expectedrotation": 728,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-12-24T16:51:05"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-12T21:12:57"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Hallway Garage Door Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:e1:77-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "11": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-30T15:04:02"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-12T21:12:57"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 8",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:e1:77-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "12": {
+      "state": {
+        "buttonevent": 17,
+        "lastupdated": "2020-12-31T09:13:57"
+      },
+      "swupdate": {
+        "state": "notupdatable",
+        "lastinstall": null
+      },
+      "config": {
+        "on": true
+      },
+      "name": "Masher Bedroom Tap Switch",
+      "type": "ZGPSwitch",
+      "modelid": "ZGPSWITCH",
+      "manufacturername": "Signify Netherlands B.V.",
+      "productname": "Hue tap switch",
+      "diversityid": "d8cde5d5-0eef-4b95-b0f0-71ddd2952af4",
+      "uniqueid": "00:00:00:00:00:45:f9:47-f2",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [],
+            "events": [
+              {
+                "buttonevent": 34,
+                "eventtype": "initial_press"
+              }
+            ]
+          },
+          {
+            "repeatintervals": [],
+            "events": [
+              {
+                "buttonevent": 16,
+                "eventtype": "initial_press"
+              }
+            ]
+          },
+          {
+            "repeatintervals": [],
+            "events": [
+              {
+                "buttonevent": 17,
+                "eventtype": "initial_press"
+              }
+            ]
+          },
+          {
+            "repeatintervals": [],
+            "events": [
+              {
+                "buttonevent": 18,
+                "eventtype": "initial_press"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "13": {
+      "state": {
+        "flag": false,
+        "lastupdated": "2020-12-25T10:06:10"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Timer.companion",
+      "type": "CLIPGenericFlag",
+      "modelid": "PHA_CTRL_START",
+      "manufacturername": "Philips",
+      "swversion": "1.0",
+      "uniqueid": "AhWYxMolU4uc",
+      "recycle": true
+    },
+    "14": {
+      "state": {
+        "rotaryevent": 1,
+        "expectedrotation": 532,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-12-24T01:41:04"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-31T21:36:34"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Masher Bedroom Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:e1:78-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "15": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-30T01:00:10"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-07-31T21:36:34"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 10",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:e1:78-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "17": {
+      "state": {
+        "status": 0,
+        "lastupdated": "2020-09-26T20:21:04"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Color of love",
+      "type": "CLIPGenericStatus",
+      "modelid": "HUELABSVTOGGLE",
+      "manufacturername": "Philips",
+      "swversion": "2.0",
+      "uniqueid": "2:12:4240-c794-4318-b7af",
+      "recycle": true
+    },
+    "19": {
+      "state": {
+        "status": 0,
+        "lastupdated": "2020-09-27T03:51:42"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Get romantic",
+      "type": "CLIPGenericStatus",
+      "modelid": "HUELABSVTOGGLE",
+      "manufacturername": "Philips",
+      "swversion": "2.0",
+      "uniqueid": "2:12:b2ca-65a7-4f86-9106",
+      "recycle": true
+    },
+    "23": {
+      "state": {
+        "status": 0,
+        "lastupdated": "2020-09-27T06:52:48"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Fornt Porch,  Soho, 100％",
+      "type": "CLIPGenericStatus",
+      "modelid": "HUELABSVTOGGLE",
+      "manufacturername": "Philips",
+      "swversion": "2.0",
+      "uniqueid": "2:17:35e3-ed21-4875-aef5",
+      "recycle": true
+    },
+    "24": {
+      "state": {
+        "rotaryevent": 2,
+        "expectedrotation": 320,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-11-28T03:29:08"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-10-18T21:20:45"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Backyard Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:e1:82-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "25": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-21T23:36:04"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-10-18T21:20:45"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 12",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:e1:82-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "26": {
+      "state": {
+        "flag": false,
+        "lastupdated": "2020-10-22T06:22:31"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Timer.companion",
+      "type": "CLIPGenericFlag",
+      "modelid": "PHA_CTRL_START",
+      "manufacturername": "Philips",
+      "swversion": "1.0",
+      "uniqueid": "0wFmCZfkkNrE",
+      "recycle": true
+    },
+    "27": {
+      "state": {
+        "rotaryevent": 1,
+        "expectedrotation": 224,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-12-29T21:36:37"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-11-01T22:43:47"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Stairway Lower Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:69:c0-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "28": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-29T21:36:44"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-11-01T22:43:47"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 14",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:69:c0-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "29": {
+      "state": {
+        "rotaryevent": 2,
+        "expectedrotation": 272,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-12-27T23:23:48"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-11-01T22:38:08"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Stairway Upstairs Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:6a:9c-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "30": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-30T09:51:35"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-11-01T22:38:08"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 16",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:6a:9c-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "31": {
+      "state": {
+        "rotaryevent": 1,
+        "expectedrotation": 28,
+        "expectedeventduration": 400,
+        "lastupdated": "2020-12-29T08:54:13"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-11-01T22:30:59"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Front Porch Switch",
+      "type": "ZLLRelativeRotary",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:6a:b2-01-fc00-0014",
+      "capabilities": {
+        "certified": true,
+        "primary": true,
+        "inputs": [
+          {
+            "repeatintervals": [
+              400
+            ],
+            "events": [
+              {
+                "rotaryevent": 1,
+                "eventtype": "start"
+              },
+              {
+                "rotaryevent": 2,
+                "eventtype": "repeat"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "32": {
+      "state": {
+        "buttonevent": 1002,
+        "lastupdated": "2020-12-21T09:53:29"
+      },
+      "swupdate": {
+        "state": "noupdates",
+        "lastinstall": "2020-11-01T22:30:59"
+      },
+      "config": {
+        "on": true,
+        "battery": 100,
+        "reachable": true,
+        "pending": []
+      },
+      "name": "Lutron Aurora 18",
+      "type": "ZLLSwitch",
+      "modelid": "Z3-1BRL",
+      "manufacturername": "Lutron",
+      "productname": "Lutron Aurora",
+      "diversityid": "2c3a75ff-55c4-4e4d-8c44-82d330b8eb9b",
+      "swversion": "3.8",
+      "uniqueid": "ff:ff:00:0f:e7:fd:6a:b2-01-fc00",
+      "capabilities": {
+        "certified": true,
+        "primary": false,
+        "inputs": [
+          {
+            "repeatintervals": [
+              800
+            ],
+            "events": [
+              {
+                "buttonevent": 1000,
+                "eventtype": "initial_press"
+              },
+              {
+                "buttonevent": 1001,
+                "eventtype": "repeat"
+              },
+              {
+                "buttonevent": 1002,
+                "eventtype": "short_release"
+              },
+              {
+                "buttonevent": 1003,
+                "eventtype": "long_release"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "33": {
+      "state": {
+        "status": 2,
+        "lastupdated": "2020-12-31T00:30:00"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Outside  lights",
+      "type": "CLIPGenericStatus",
+      "modelid": "PHA_STATE",
+      "manufacturername": "Philips",
+      "swversion": "1.0",
+      "uniqueid": "PN4x9qHvNoKU",
+      "recycle": true
+    },
+    "34": {
+      "state": {
+        "flag": false,
+        "lastupdated": "2020-12-31T06:00:00"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Porch",
+      "type": "CLIPGenericFlag",
+      "modelid": "PHA_CTRL_START",
+      "manufacturername": "Philips",
+      "swversion": "1.0",
+      "uniqueid": "ojoPbBkPuCGk",
+      "recycle": true
+    },
+    "35": {
+      "state": {
+        "flag": false,
+        "lastupdated": "none"
+      },
+      "config": {
+        "on": true,
+        "reachable": true
+      },
+      "name": "Wake up 1",
+      "type": "CLIPGenericFlag",
+      "modelid": "WAKEUP",
+      "manufacturername": "Philips",
+      "swversion": "1.0",
+      "uniqueid": "L_04_CAVsd",
+      "recycle": true
+    }
+  }
+
